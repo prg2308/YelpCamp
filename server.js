@@ -1,14 +1,12 @@
 const express = require('express')
 const app = express()
 const path = require('path')
+const campgrounds = require('./router/campground')
+const reviews = require('./router/reviews')
 const methodOverride = require('method-override')
 const mongoose = require('mongoose')
-const catchAsync = require('./utilities/catchAsync.js')
 const ExpressError = require('./utilities/ExpressError.js')
 const ejsMate = require('ejs-mate')
-const Campground = require('./models/campground')
-const Review = require('./models/review')
-const { campgroundSchema, reviewSchema } = require('./utilities/schemas.js')
 
 mongoose.connect('mongodb://localhost:27017/yelpcamp', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
@@ -29,86 +27,12 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 
-const validateCampground = function (req, res, next) {
-    const { error } = campgroundSchema.validate(req.body)
-    if (error) {
-        throw new ExpressError(error.details[0].message, 400)
-    } else {
-        next()
-    }
-
-}
-
-const validateReview = function (req, res, next) {
-    const { error } = reviewSchema.validate(req.body)
-    if (error) {
-        throw new ExpressError(error.details[0].message, 400)
-    } else {
-        next()
-    }
-}
-
-app.get('/campgrounds', catchAsync(async (req, res, next) => {
-    const campgrounds = await Campground.find({})
-    res.render('campgrounds/index.ejs', { campgrounds })
-}))
+app.use('/campgrounds', campgrounds)
+app.use('/campgrounds/:id/reviews', reviews)
 
 app.get('/', (req, res) => {
     res.redirect('/campgrounds')
 })
-
-app.get('/campgrounds/new', (req, res) => {
-    res.render('campgrounds/new')
-})
-
-app.get('/campgrounds/:id', catchAsync(async (req, res, next) => {
-    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-        throw new ExpressError('Campground doesnt exist', 404)
-    }
-    const campground = await Campground.findById(req.params.id).populate('reviews')
-    res.render('campgrounds/show.ejs', { campground })
-}))
-
-app.get('/campgrounds/:id/edit', catchAsync(async (req, res) => {
-    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-        throw new ExpressError('Campground doesnt exist', 404)
-    }
-    const campground = await Campground.findById(req.params.id)
-    res.render('campgrounds/edit.ejs', { campground })
-}))
-
-app.post('/campgrounds', validateCampground, catchAsync(async (req, res) => {
-
-    const campground = new Campground(req.body)
-    await campground.save();
-    res.redirect(`/campgrounds/${campground._id}`)
-}))
-
-app.put('/campgrounds/:id', validateCampground, catchAsync(async (req, res) => {
-    const campground = await Campground.findByIdAndUpdate(req.params.id, req.body)
-    res.redirect(`/campgrounds/${campground._id}`)
-}))
-
-app.delete('/campgrounds/:id', catchAsync(async (req, res) => {
-    await Campground.findByIdAndDelete(req.params.id)
-    res.redirect('/campgrounds')
-}))
-
-app.post('/campgrounds/:id/reviews', validateReview, catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id)
-    const review = new Review(req.body)
-    campground.reviews.push(review)
-    await review.save()
-    await campground.save()
-    res.redirect(`/campgrounds/${req.params.id}`)
-}))
-
-app.delete('/campgrounds/:id/reviews/:reviewId', catchAsync(async (req, res) => {
-    const { id, reviewId } = req.params
-    await Campground.findByIdAndUpdate(id, { $pull: { reviews: reviewId } })
-    await Review.findByIdAndDelete(reviewId)
-    res.redirect(`/campgrounds/${id}`)
-}))
 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page not found', 404))
