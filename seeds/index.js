@@ -3,7 +3,7 @@ const cities = require('./cities')
 const { descriptors, places } = require('./seedHelpers')
 const Campground = require('../models/campground')
 
-mongoose.connect('mongodb://localhost:27017/tentjet', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost:27017/yelpcamp', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log('Connected to mongod')
     })
