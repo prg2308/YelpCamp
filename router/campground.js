@@ -30,6 +30,10 @@ router.get('/:id', catchAsync(async (req, res, next) => {
         throw new ExpressError('Campground doesnt exist', 404)
     }
     const campground = await Campground.findById(req.params.id).populate('reviews')
+    if (!campground) {
+        req.flash('error', 'Cannot find Campground!')
+        return res.redirect('/campgrounds')
+    }
     res.render('campgrounds/show.ejs', { campground })
 }))
 
@@ -38,23 +42,29 @@ router.get('/:id/edit', catchAsync(async (req, res) => {
         throw new ExpressError('Campground doesnt exist', 404)
     }
     const campground = await Campground.findById(req.params.id)
+    if (!campground) {
+        req.flash('error', 'Cannot find Campground!')
+        return res.redirect('/campgrounds')
+    }
     res.render('campgrounds/edit.ejs', { campground })
 }))
 
 router.post('/', validateCampground, catchAsync(async (req, res) => {
-
     const campground = new Campground(req.body)
     await campground.save();
+    req.flash('success', 'Created new Campground!')
     res.redirect(`/campgrounds/${campground._id}`)
 }))
 
 router.put('/:id', validateCampground, catchAsync(async (req, res) => {
     const campground = await Campground.findByIdAndUpdate(req.params.id, req.body)
+    req.flash('success', 'Edited Campground!')
     res.redirect(`/campgrounds/${campground._id}`)
 }))
 
 router.delete('/:id', catchAsync(async (req, res) => {
-    await Campground.findByIdAndDelete(req.params.id)
+    const campground = await Campground.findByIdAndDelete(req.params.id)
+    req.flash('success', `Deleted ${campground.title}`)
     res.redirect('/campgrounds')
 }))
 
