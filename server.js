@@ -1,14 +1,20 @@
 const express = require('express')
 const app = express()
 const path = require('path')
-const campgrounds = require('./router/campground')
-const reviews = require('./router/reviews')
-const methodOverride = require('method-override')
 const mongoose = require('mongoose')
+const methodOverride = require('method-override')
 const session = require('express-session')
+const passport = require('passport')
 const flash = require('connect-flash')
-const ExpressError = require('./utilities/ExpressError.js')
+const LocalStrategy = require('passport-local')
 const ejsMate = require('ejs-mate')
+
+const campgroundRoutes = require('./router/campground')
+const reviewRoutes = require('./router/reviews')
+const userRoutes = require('./router/user')
+const ExpressError = require('./utilities/ExpressError.js')
+const User = require('./models/user.js')
+
 const sessionConfig = {
     secret: 'key',
     resave: false,
@@ -36,6 +42,13 @@ app.engine('ejs', ejsMate)
 
 app.use(session(sessionConfig))
 app.use(flash())
+
+app.use(passport.initialize())
+app.use(passport.session())
+passport.use(new LocalStrategy(User.authenticate()))
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
+
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -46,12 +59,9 @@ app.use((req, res, next) => {
     next();
 })
 
-app.use('/campgrounds', campgrounds)
-app.use('/campgrounds/:id/reviews', reviews)
-
-app.get('/', (req, res) => {
-    res.redirect('/campgrounds')
-})
+app.use('/', userRoutes)
+app.use('/campgrounds', campgroundRoutes)
+app.use('/campgrounds/:id/reviews', reviewRoutes)
 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page not found', 404))
