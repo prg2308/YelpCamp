@@ -6,3 +6,5 @@ icons
 update create and edit campfround pages to look better
 custom styles
 username already taken for email????
+Navigations buttons
+forgot password

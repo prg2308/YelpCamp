@@ -4,7 +4,6 @@ const passport = require('passport')
 
 const catchAsync = require('../utilities/catchAsync')
 const User = require('../models/user');
-const { func } = require('joi');
 
 router.get('/register', (req, res) => {
     res.render('users/register.ejs')
@@ -18,7 +17,8 @@ router.post('/login', passport.authenticate('local', { failureFlash: true, failu
     const { username } = req.body
     const user = await User.findOne({ username })
     req.flash('success', `Welcome back ${user.username}!`)
-    res.redirect('/campgrounds')
+    const redirectUrl = req.session.returnTo || '/campgrounds'
+    res.redirect(redirectUrl)
 }))
 
 router.post('/register', catchAsync(async (req, res) => {
