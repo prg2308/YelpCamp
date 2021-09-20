@@ -12,3 +12,5 @@ add password toggle button
 email already exits
 warning flash for logout and delete
 change error back button
+update userSchema to have an array of posts and make changes on route
+add scripts to confirm delete and confirm logout
