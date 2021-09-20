@@ -14,3 +14,5 @@ warning flash for logout and delete
 change error back button
 update userSchema to have an array of posts and make changes on route
 add scripts to confirm delete and confirm logout
+make about page
+add users controller after making routes
