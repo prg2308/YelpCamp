@@ -8,3 +8,7 @@ custom styles
 username already taken for email????
 Navigations buttons
 forgot password
+add password toggle button
+email already exits
+warning flash for logout and delete
+change error back button

@@ -1,5 +1,6 @@
 const { campgroundSchema, reviewSchema } = require('./schemas')
 const ExpressError = require('./ExpressError')
+const Campground = require('../models/campground')
 
 module.exports.isLoggedIn = function (req, res, next) {
     if (!req.isAuthenticated()) {
@@ -25,5 +26,17 @@ module.exports.validateReview = function (req, res, next) {
         throw new ExpressError(error.details[0].message, 400)
     } else {
         next()
+    }
+}
+
+module.exports.isAuth = async function (req, res, next) {
+    const { id } = req.params
+    const campground = await Campground.findById(id)
+    if (!campground) {
+        req.flash('error', 'Cannot find Campground!')
+        return res.redirect('/campgrounds')
+    }
+    if (!campground.author.equals(req.user._id)) {
+        return res.redirect(`/campgrounds/${id}`)
     }
 }
