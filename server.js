@@ -10,7 +10,7 @@ const LocalStrategy = require('passport-local')
 const ejsMate = require('ejs-mate')
 
 const campgroundRoutes = require('./router/campground')
-const reviewRoutes = require('./router/reviews')
+const reviewRoutes = require('./router/review')
 const userRoutes = require('./router/user')
 const ExpressError = require('./utilities/ExpressError.js')
 const User = require('./models/user.js')
