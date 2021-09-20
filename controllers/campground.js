@@ -50,7 +50,7 @@ module.exports.create = async (req, res) => {
 }
 
 module.exports.edit = async (req, res) => {
-    await Campground.findByIdAndUpdate(req.params.id, req.body)
+    const campground = await Campground.findByIdAndUpdate(req.params.id, req.body)
     req.flash('success', 'Edited Campground!')
     res.redirect(`/campgrounds/${campground._id}`)
 }

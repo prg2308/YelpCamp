@@ -5,39 +5,36 @@ const catchAsync = require('../utilities/catchAsync.js')
 const { isLoggedIn, validateCampground, isAuth } = require('../utilities/middleware')
 const campgrounds = require('../controllers/campground')
 
-router.get('/', catchAsync(campgrounds.index))
+router.route('/')
+    .get(catchAsync(campgrounds.index))
+    .post(
+        isLoggedIn,
+        validateCampground,
+        catchAsync(campgrounds.create)
+    )
+
 
 router.get('/new', isLoggedIn, campgrounds.new)
 
-router.get('/:id', catchAsync(campgrounds.show))
+router.route('/:id')
+    .get(catchAsync(campgrounds.show))
+    .put(
+        isLoggedIn,
+        isAuth,
+        validateCampground,
+        catchAsync(campgrounds.edit)
+    )
+    .delete(
+        isLoggedIn,
+        isAuth,
+        catchAsync(campgrounds.delete)
+    )
 
 router.get(
     '/:id/edit',
     isLoggedIn,
     isAuth,
     catchAsync(campgrounds.renderEdit)
-)
-
-router.post(
-    '/',
-    isLoggedIn,
-    validateCampground,
-    catchAsync(campgrounds.create)
-)
-
-router.put(
-    '/:id',
-    isLoggedIn,
-    isAuth,
-    validateCampground,
-    catchAsync(campgrounds.edit)
-)
-
-router.delete(
-    '/:id',
-    isLoggedIn,
-    isAuth,
-    catchAsync(campgrounds.delete)
 )
 
 module.exports = router
