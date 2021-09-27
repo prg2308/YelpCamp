@@ -15,6 +15,10 @@ const userRoutes = require('./router/user')
 const ExpressError = require('./utilities/ExpressError.js')
 const User = require('./models/user.js')
 
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config()
+}
+
 const sessionConfig = {
     secret: 'key',
     resave: false,
@@ -77,9 +81,13 @@ app.use((err, req, res, next) => {
     if (!err.message) {
         err.message = 'Something went wrong'
     }
+    console.log(err)
     res.status(statusCode).render('error.ejs', { err })
 })
 
 app.listen(3000, () => {
     console.log('Hosted on port 3000')
 })
+
+
+
