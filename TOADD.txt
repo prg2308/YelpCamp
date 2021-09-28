@@ -13,8 +13,10 @@ email already exits
 warning flash for logout and delete
 change error back button
 update userSchema to have an array of posts and make changes on route
-add scripts to confirm delete and confirm logout
+add scripts to confirm delete, confirm logout and exit without saving
 make about page
 add users controller after making routes
 add confirm password
 edit push on to images array in edit route
+ADD A LIMIT TO IMAGES
+Add image size to style sheet in edit route //not mandatory

@@ -31,12 +31,15 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="image" class="form-label">Image URL</label>
-                    <input type="file" name="image" id="image" multiple>
+                    <label for="description" class="form-label">Description</label>
+                    <textarea name="description" id="description" class="form-control" rows="5" required></textarea>
+                    <div class="invalid-feedback">
+                        Required
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea name="description" id="description" class="form-control" required></textarea>
+                    <label for="image" class="form-label">Upload Images</label>
+                    <input class="form-control" type="file" id="image" name="image" multiple required>
                     <div class="invalid-feedback">
                         Required
                     </div>

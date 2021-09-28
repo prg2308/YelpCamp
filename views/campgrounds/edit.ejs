@@ -2,8 +2,8 @@
     <div class="row">
         <h1 class="text-center">Edit Campground</h1>
         <div class="col-6 offset-3">
-            <form action="/campgrounds/<%= campground._id%>?_method=PUT" method="POST" novalidate
-                class="validated-form">
+            <form action="/campgrounds/<%= campground._id%>?_method=PUT" method="POST" novalidate class="validated-form"
+                enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
                     <input type="text" name="title" id="title" class="form-control" value="<%= campground.title%>"
@@ -32,19 +32,21 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="image" class="form-label">Image URL</label>
-                    <input type="text" id="image" name="image" class="form-control" value="<%= campground.image%>"
-                        required>
+                    <label for="description" class="form-label">Description</label>
+                    <textarea name="description" id="description" class="form-control" rows="5"
+                        required><%= campground.description%></textarea>
                     <div class="invalid-feedback">
                         Required
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea name="description" id="description" class="form-control"
-                        required><%= campground.description%></textarea>
-                    <div class="invalid-feedback">
-                        Required
+                    <label for="image" class="form-label">Add Images</label>
+                    <input class="form-control" type="file" id="image" name="image" multiple>
+                    <div class="d-flex flex-wrap justify-content-between my-3">
+                        <% campground.images.forEach( function(img,i){ %>
+                            <img src="<%= img.url%>" class="img-thumbnail my-1 img-fluid" alt=""
+                                style="width: 200px; height: 150px;">
+                            <%}) %>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-info mb-3">Save</button>
