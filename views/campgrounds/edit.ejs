@@ -42,11 +42,33 @@
                 <div class="mb-3">
                     <label for="image" class="form-label">Add Images</label>
                     <input class="form-control" type="file" id="image" name="image" multiple>
-                    <div class="d-flex flex-wrap justify-content-between my-3">
+                </div>
+                <div class="mb-3">
+                    <h5 class="mb-3"> Delete Images </h5>
+                    <!-- <div class="d-flex flex-wrap form-check my-3">
                         <% campground.images.forEach( function(img,i){ %>
-                            <img src="<%= img.url%>" class="img-thumbnail my-1 img-fluid" alt=""
-                                style="width: 200px; height: 150px;">
+                            <div class="custom-control custom-checkbox image-checkbox">
+                                <input type="checkbox" name="deleteImages[]" id="image-<%=i%>"
+                                    class="custom-control-input form-check-input" value="<%=img.filename %>">
+                                <label for="image-<%= i%>" class="custom-control-label form-check-label">
+                                    <img src="<%= img.thumbnail%>" class="my-1 img-fluid img-thumbnail" alt="">
+                                </label>
+                            </div>
                             <%}) %>
+                    </div> -->
+                    <div class="row row-cols-1 row-cols-md-4 mb-3">
+                        <% campground.images.forEach((image, i)=> { %>
+                            <div class="col mb-3">
+                                <div class="card">
+                                    <img class="card-img" src="<%= image.thumbnail %>" alt="">
+                                    <div class="card-img-overlay text-end pt-1 pe-2">
+                                        <label class="visually-hidden" for="image-<%= i %>">Delete Image</label>
+                                        <input class="form-check-input" type="checkbox" name="deleteImages[]"
+                                            value="<%= image.filename %>" id="image-<%= i %>">
+                                    </div>
+                                </div>
+                            </div>
+                            <% }) %>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-info mb-3">Save</button>

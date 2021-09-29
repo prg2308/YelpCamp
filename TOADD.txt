@@ -20,3 +20,4 @@ add confirm password
 edit push on to images array in edit route
 ADD A LIMIT TO IMAGES
 Add image size to style sheet in edit route //not mandatory
+Add ellipses to long text
