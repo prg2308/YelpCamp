@@ -2,6 +2,9 @@ const mongoose = require('mongoose')
 const { cloudinary } = require('../config/cloudinary')
 const ExpressError = require('../utilities/ExpressError')
 const Campground = require('../models/campground')
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding')
+const { mapboxToken } = require('../config/env')
+const geoCoder = mbxGeocoding({ accessToken: mapboxToken })
 
 module.exports.index = async (req, res, next) => {
     const campgrounds = await Campground.find({})
@@ -42,31 +45,41 @@ module.exports.renderEdit = async (req, res) => {
 }
 
 module.exports.create = async (req, res) => {
+    const geoData = await geoCoder.forwardGeocode({
+        query: req.body.location,
+        limit: 1
+    }).send()
     const campground = new Campground(req.body)
     if (!req.files) {
         throw new ExpressError('Images are required', 400)
     }
     campground.images = req.files.map(f => ({ url: f.path, filename: f.filename }))
     campground.author = req.user._id
+    campground.geometry = geoData.body.features[0].geometry
     await campground.save();
     req.flash('success', 'Created new Campground!')
     res.redirect(`/campgrounds/${campground._id}`)
 }
 
 module.exports.edit = async (req, res) => {
+    const geoData = await geoCoder.forwardGeocode({
+        query: req.body.location,
+        limit: 1
+    }).send()
     const campground = await Campground.findByIdAndUpdate(req.params.id, req.body)
+    campground.geometry = geoData.body.features[0].geometry
     if (!req.files) {
         throw new ExpressError('Images are required', 400)
     }
     const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }))
     campground.images.push(...imgs)
-    await campground.save()
     if (req.body.deleteImages) {
         for (let filename of req.body.deleteImages) {
             await cloudinary.uploader.destroy(filename)
         }
         await campground.updateOne({ $pull: { images: { filename: { $in: req.body.deleteImages } } } })
     }
+    await campground.save()
     req.flash('success', 'Edited Campground!')
     res.redirect(`/campgrounds/${campground._id}`)
 }

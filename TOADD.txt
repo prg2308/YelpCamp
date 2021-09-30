@@ -1,6 +1,7 @@
 User profile page
 User details and campgrounds by user
 time review was added
+paginate reviews
 Contact number and other details
 icons
 update create and edit campfround pages to look better
@@ -21,3 +22,7 @@ edit push on to images array in edit route
 ADD A LIMIT TO IMAGES
 Add image size to style sheet in edit route //not mandatory
 Add ellipses to long text
+ADD default images to user and to campgrounds
+Handle giving in wrong infromation to maps
+REMOVE IF STATEMENT FROM MODEL POST MIDDLEWARE
+when deleteUser fix seeds file user field

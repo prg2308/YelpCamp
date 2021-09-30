@@ -45,17 +45,6 @@
                 </div>
                 <div class="mb-3">
                     <h5 class="mb-3"> Delete Images </h5>
-                    <!-- <div class="d-flex flex-wrap form-check my-3">
-                        <% campground.images.forEach( function(img,i){ %>
-                            <div class="custom-control custom-checkbox image-checkbox">
-                                <input type="checkbox" name="deleteImages[]" id="image-<%=i%>"
-                                    class="custom-control-input form-check-input" value="<%=img.filename %>">
-                                <label for="image-<%= i%>" class="custom-control-label form-check-label">
-                                    <img src="<%= img.thumbnail%>" class="my-1 img-fluid img-thumbnail" alt="">
-                                </label>
-                            </div>
-                            <%}) %>
-                    </div> -->
                     <div class="row row-cols-1 row-cols-md-4 mb-3">
                         <% campground.images.forEach((image, i)=> { %>
                             <div class="col mb-3">

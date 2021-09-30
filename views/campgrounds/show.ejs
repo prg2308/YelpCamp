@@ -2,6 +2,9 @@
     <div class="row">
         <div class="col-6">
             <div class="card">
+                <!-- map -->
+                <div id='map' style='width: 400px; height: 300px;'></div>
+                <!-- map -->
                 <div id="carouselControl" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <% campground.images.forEach((img,i)=>{ %>
@@ -57,7 +60,7 @@
         </div>
         <% if(currentUser){ %>
             <div class="col-6">
-                <h2 class=>Leave a review</h2>
+                <!-- <h2 class=>Leave a review</h2>
                 <form action="/campgrounds/<%=campground._id%>/reviews" method="POST" novalidate class="validated-form">
                     <div>
                         <fieldset class="starability-basic">
@@ -83,7 +86,7 @@
                         </div>
                     </div>
                     <button type="submit" class="btn btn-success">Add review</button>
-                </form>
+                </form> -->
                 <div class="mt-3">
                     <% for(review of campground.reviews){ %>
                         <div class="card mb-3">
@@ -118,7 +121,7 @@
             </div>
             <% }else{ %>
                 <div class="col-6">
-                    <div>
+                    <div class="mt-3">
                         <% for(review of campground.reviews){ %>
                             <div class="card mb-3">
                                 <div class="card-body">
@@ -146,3 +149,8 @@
                 <% } %>
     </div>
     <link rel="stylesheet" href="/css/star.css">
+
+    <script>
+        const campground = <%-JSON.stringify(campground)%>
+    </script>
+    <script src="/js/mapScript.js"></script>

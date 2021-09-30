@@ -19,6 +19,17 @@ const campgroundSchema = new Schema({
         type: String,
         required: true
     },
+    geometry: {
+        type: {
+            type: String,
+            enum: ['Point'],
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
+    },
     location: {
         type: String,
         required: true
@@ -55,7 +66,9 @@ campgroundSchema.post('findOneAndDelete', async function (campground) {
 
     if (campground.images) {
         for (const img of campground.images) {
-            await cloudinary.uploader.destroy(img.filename);
+            if (img.filename !== 'YelpCamp/sample_cwp8tg') {
+                await cloudinary.uploader.destroy(img.filename);
+            }
         }
     }
 })
