@@ -1,6 +1,7 @@
 const { number } = require('joi');
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+const opts = { toJSON: { virtuals: true } };
 
 const { cloudinary } = require('../config/cloudinary')
 const Review = require('./review')
@@ -53,6 +54,10 @@ const campgroundSchema = new Schema({
             ref: 'Review'
         }
     ]
+}, opts)
+
+campgroundSchema.virtual('properties.popUpMarkUp').get(function () {
+    return `<img src="${this.images[0].url}" style="width:100%;height:100%"><strong><a href="/campgrounds/${this._id}" style="text-decoration:none;">${this.title}</a></strong>`
 })
 
 campgroundSchema.post('findOneAndDelete', async function (campground) {

@@ -26,4 +26,5 @@ ADD default images to user and to campgrounds
 Handle giving in wrong infromation to maps
 REMOVE IF STATEMENT FROM MODEL POST MIDDLEWARE
 when deleteUser fix seeds file user field
-Add nightmode to apps
+Add nightmode to maps
+remove comments from clusterMap.js and everywhere else
