@@ -28,3 +28,4 @@ REMOVE IF STATEMENT FROM MODEL POST MIDDLEWARE
 when deleteUser fix seeds file user field
 Add nightmode to maps
 remove comments from clusterMap.js and everywhere else
+Add github icon to home page button

@@ -1,0 +1,113 @@
+body{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("https://images.unsplash.com/photo-1559521783-1d1599583485?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80");
+    background-size: cover;
+    background-position: center;
+}
+
+.navbar-home{
+    background-color: transparent;
+}
+
+
+.footer-container{
+    text-align: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.nav-link-active {
+    border-bottom: 2px solid rgb(251,238,193);
+
+}
+
+.nav-link-home:hover{
+    border-bottom: 2px solid rgba(251,238,193,0.5);
+}
+
+
+.lead-img{
+    margin-bottom: 1rem;
+}
+
+.lead-head{
+    padding-bottom: 0.5rem;
+}
+
+.lead{
+    text-align: center;
+}
+
+.lead-title{
+    margin-bottom: 1rem;
+}
+
+.btn-custom{
+    background-color: white;
+    background-color: rgb(251,238,193);
+    color: black;
+    font-weight: 900;
+    mix-blend-mode: screen;
+    border-radius: 12px;
+    margin-top: 0.5rem;
+}
+
+.btn-custom::before{
+    mix-blend-mode: color-burn;
+}
+
+.btn-custom:hover{
+    background-color: rgba(251,238,193,0.8);
+}
+
+  
+@media (min-width:992px){
+    .navbar-home{
+        padding-left: 10rem;
+        padding-right: 10rem;
+    }
+
+    .main-home{
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 15rem;
+        padding-bottom: 15rem;
+    }
+
+    .nav-link-home{
+        padding: 0.25rem 0 ;
+        margin-left: 1rem;
+        transition: all 0.25s;
+    }
+    
+
+}
+
+@media (max-width:992px){
+    .nav-link-home{
+        width: 85%;
+        margin-left: 0;
+        transition: all 0.25s;
+    }
+    .nav-link-home:hover{
+        border-bottom: none;
+    }
+    .nav-link-active:hover{
+        border-bottom: 2px solid rgba(251,238,193,0.8);;
+    }
+
+    /* .main-home{
+        color: white;
+        padding-top: 15rem;
+        padding-bottom: 15rem;
+        display: fel;
+    } */
+}
+
+
+
+
