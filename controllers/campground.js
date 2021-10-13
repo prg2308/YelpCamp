@@ -4,10 +4,17 @@ const ExpressError = require('../utilities/ExpressError')
 const Campground = require('../models/campground')
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding')
 const { mapboxToken } = require('../config/env')
+const campground = require('../models/campground')
 const geoCoder = mbxGeocoding({ accessToken: mapboxToken })
 
 module.exports.index = async (req, res, next) => {
-    const campgrounds = await Campground.find({})
+    let campgrounds
+    if (req.query.search) {
+        const search = req.query.search.toLowerCase();
+        campgrounds = await campground.find({ title: { $regex: '.*' + search + '.*' } })
+    } else {
+        campgrounds = await Campground.find({})
+    }
     res.render('campgrounds/index.ejs', { campgrounds })
 }
 
