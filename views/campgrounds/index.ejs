@@ -45,7 +45,16 @@
         </div>
         <main class="container my-5">
             <%- include('../partials/flash.ejs') %>
-                <h1>All Campgrounds</h1>
+                <div class="container result-head">
+                    <%= text %>
+                </div>
+                <div class="container container-divider">
+                    <div class="row divider-head-row">
+                        <div class="col-5 divider divider-left"></div>
+                        <div class="col-2 div-icon"><i class="far fa-circle"></i></div>
+                        <div class="col-5 divider divider-right"></div>
+                    </div>
+                </div>
                 <div class="row camps-row">
                     <% for(let campground of campgrounds){ %>
                         <div class="col-lg-4 camp-col">
@@ -123,6 +132,8 @@
                             </div>
                         </div>
                         <% } %>
+                        <% if(allCamps.length){ %>
+
                             <div class="pagination-div">
                                 <ul class="pagination justify-content-center pagination-ul">
                                     <li class="page-item previous">
@@ -139,54 +150,61 @@
                                                 <li class="page-item disabled">
                                                     <span class="page-link">...</span>
                                                 </li>
-                                            <% } %>
-                                             <% } %>
-                                                <% if(parseInt(page)!==1){ %>
-                                                    <li class="page-item"><a class="page-link"
-                                                            href="/campgrounds?page=<%= parseInt(page)-1 %>&search=<%= search %>">
-                                                            <%= parseInt(page)-1 %>
-                                                        </a>
-                                                    </li>
+                                                <% } %>
                                                     <% } %>
-                                                        <li class="page-item active"><a class="page-link"
-                                                                href="/campgrounds?page=<%= page %>&search=<%= search %>">
-                                                                <%= page %>
-                                                            </a>
-                                                        </li>
-
-                                                        <% if(parseInt(page)!== Math.ceil(allCamps.length/6)){ %>
+                                                        <% if(parseInt(page)!==1){ %>
                                                             <li class="page-item"><a class="page-link"
-                                                                    href="/campgrounds?page=<%= parseInt(page)+1 %>&search=<%= search %>">
-                                                                    <%= parseInt(page)+1 %>
+                                                                    href="/campgrounds?page=<%= parseInt(page)-1 %>&search=<%= search %>">
+                                                                    <%= parseInt(page)-1 %>
                                                                 </a>
                                                             </li>
                                                             <% } %>
-
-                                                        <% const pagArrayLast=[parseInt(Math.ceil(allCamps.length/6)),
-                                                            parseInt(Math.ceil(allCamps.length/6))-1 ] %>
-                                                            <% if(!pagArrayLast.includes(parseInt(page))){ %>
-                                                                <% if(parseInt(page)!== Math.ceil(allCamps.length/6)-2 ){ %>
-                                                                    <li class="page-item disabled">
-                                                                        <span class="page-link">...</span>
-                                                                    </li>
-                                                                <% } %>
-                                                                <li class="page-item last">
-                                                                    <a class="page-link"
-                                                                        href="/campgrounds?page=<%= Math.ceil(allCamps.length/6) %>&search=<%= search %>">
-                                                                        <%= Math.ceil(allCamps.length/6) %>
+                                                                <li class="page-item active"><a class="page-link"
+                                                                        href="/campgrounds?page=<%= page %>&search=<%= search %>">
+                                                                        <%= page %>
                                                                     </a>
                                                                 </li>
-                                                                <% } %>
-                                                                    <li class="page-item next">
-                                                                        <a class="page-link"
-                                                                            href="/campgrounds?page=<%= parseInt(page)+1 %>&search=<%= search %>">&rarr;</a>
+
+                                                                <% if(parseInt(page)!==Math.ceil(allCamps.length/6)){ %>
+                                                                    <li class="page-item"><a class="page-link"
+                                                                            href="/campgrounds?page=<%= parseInt(page)+1 %>&search=<%= search %>">
+                                                                            <%= parseInt(page)+1 %>
+                                                                        </a>
                                                                     </li>
+                                                                    <% } %>
+
+                                                                        <% const
+                                                                            pagArrayLast=[parseInt(Math.ceil(allCamps.length/6)),
+                                                                            parseInt(Math.ceil(allCamps.length/6))-1 ]
+                                                                            %>
+                                                                            <% if(!pagArrayLast.includes(parseInt(page))){
+                                                                                %>
+                                                                                <% if(parseInt(page)!==Math.ceil(allCamps.length/6)-2
+                                                                                    ){ %>
+                                                                                    <li class="page-item disabled">
+                                                                                        <span
+                                                                                            class="page-link">...</span>
+                                                                                    </li>
+                                                                                    <% } %>
+                                                                                        <li class="page-item last">
+                                                                                            <a class="page-link"
+                                                                                                href="/campgrounds?page=<%= Math.ceil(allCamps.length/6) %>&search=<%= search %>">
+                                                                                                <%= Math.ceil(allCamps.length/6)
+                                                                                                    %>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <% } %>
+                                                                                            <li class="page-item next">
+                                                                                                <a class="page-link"
+                                                                                                    href="/campgrounds?page=<%= parseInt(page)+1 %>&search=<%= search %>">&rarr;</a>
+                                                                                            </li>
                                 </ul>
                             </div>
+                        <% } %>
                 </div>
         </main>
         <script>
-            const campgrounds = { features:<%- JSON.stringify(allCamps) %>}
+            const campgrounds = { features:<%- JSON.stringify(allCamps) %> }
             const page = <%- JSON.stringify(page) %>
             const previous = document.querySelector('.previous')
             const next = document.querySelector('.next')
@@ -200,130 +218,7 @@
         <script src="/js/clusterMap.js"></script>
         <%- include('../partials/footer.ejs') %>
 </body>
-
-<style>
-    body {
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        background-color: #f5f5f5;
-    }
-
-    .sticky-top {
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: 0;
-        z-index: 1030;
-    }
-
-    .row {
-        background-color: white;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-    }
-
-    .camps-row {
-        background-color: #f5f5f5;
-    }
-
-    .search-sort-container {
-        background-color: white;
-        box-shadow: 0 4px 8px 0 rgb(0 0 0 / 7%);
-    }
-
-    .search-sort-bar {
-        justify-content: space-between;
-    }
-
-    .sort-group {
-        width: 40%;
-    }
-
-    .search-group {
-        margin-bottom: 0;
-    }
-
-    .btn-search {
-        padding: 0;
-    }
-
-    .camp-card {
-        margin: 1rem;
-        border: none;
-        box-shadow: 0 4px 8px 0 rgb(0 0 0 / 10%), 0 6px 20px 0 rgb(0 0 0 / 9%);
-    }
-
-    .camp-info {
-        padding-bottom: 0;
-    }
-
-    .camp-price {
-        padding-left: 1.25rem;
-        padding-right: 0;
-    }
-
-    .camp-price-h5 {
-        margin-bottom: 0;
-    }
-
-    .camp-card-title {
-        margin-bottom: 0;
-    }
-
-    .camp-title-anchor {
-        text-decoration: none;
-    }
-
-    .no-rating {
-        padding-left: 1rem;
-    }
-
-    .bg-dark {
-        transition: all 0.25s;
-    }
-
-    .bg-trans {
-        background-color: transparent;
-        transition: all 0.25s;
-    }
-    
-    .pagination-div{
-        padding-top: 2rem;
-    }
-
-    .pagination-ul{
-        margin: 0;
-    }
-
-    @media (min-width:992px) {
-        .search-col {
-            padding-left: 20rem;
-        }
-    }
-
-    @media (min-width:768px) and (max-width: 991px) {
-        .search-col {
-            padding-left: 7rem;
-        }
-    }
-
-    @media (max-width:768px) {
-        .search-col {
-            padding-left: 4rem;
-        }
-    }
-</style>
-
-<script>
-    const navbar = document.querySelector('.navbar');
-    window.onscroll = () => {
-        if (window.scrollY > 100) {
-            navbar.classList.add('bg-dark');
-            navbar.classList.remove('bg-trans');
-        } else {
-            navbar.classList.add('bg-trans');
-            navbar.classList.remove('bg-dark');
-        }
-    };
-</script>
+<link rel="stylesheet" href="/css/index-styles.css">
+<script src="/js/index-script.js"></script>
 
 </html>

@@ -1,0 +1,149 @@
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+
+.sticky-top {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+
+.row {
+    background-color: white;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.result-head {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.divider-head-row {
+    justify-content: center;
+    background-color: #f5f5f5;
+}
+
+.divider {
+    border-bottom: 2px solid black;
+    margin-bottom: 0.5rem;
+}
+
+.div-icon {
+    position: relative;
+    width: 1%;
+    top: -3px;
+    font-size: 12px;
+    color: black;
+    padding: 0;
+}
+
+.camps-row {
+    background-color: #f5f5f5;
+}
+
+.search-sort-container {
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 7%);
+}
+
+.search-sort-bar {
+    justify-content: space-between;
+}
+
+.sort-group {
+    width: 40%;
+}
+
+.search-group {
+    margin-bottom: 0;
+}
+
+.btn-search {
+    padding: 0;
+}
+
+.camp-card {
+    margin: 1rem;
+    border: none;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 10%), 0 6px 20px 0 rgb(0 0 0 / 9%);
+}
+
+.camp-info {
+    padding-bottom: 0;
+}
+
+.camp-price {
+    padding-left: 1.25rem;
+    padding-right: 0;
+}
+
+.camp-price-h5 {
+    margin-bottom: 0;
+}
+
+.camp-card-title {
+    margin-bottom: 0;
+}
+
+.camp-title-anchor {
+    text-decoration: none;
+}
+
+.no-rating {
+    padding-left: 1rem;
+}
+
+.bg-dark {
+    transition: all 0.25s;
+}
+
+.bg-trans {
+    background-color: transparent;
+    transition: all 0.25s;
+}
+
+.pagination-div {
+    padding-top: 2rem;
+}
+
+.pagination-ul {
+    margin: 0;
+}
+
+@media (min-width:992px) {
+    .search-col {
+        padding-left: 20rem;
+    }
+
+    .divider-right{
+        position: relative;
+        left: 1px;
+    }
+}
+
+@media (min-width:768px) and (max-width: 991px) {
+    .search-col {
+        padding-left: 7rem;
+    }
+
+    .divider-right{
+        position: relative;
+        left: 6px;
+    }
+}
+
+@media (max-width:768px) {
+    .search-col {
+        padding-left: 4rem;
+    }
+
+    .divider-right{
+        position: relative;
+        left: 8px;
+    }
+}

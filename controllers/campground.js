@@ -8,8 +8,9 @@ const campground = require('../models/campground')
 const geoCoder = mbxGeocoding({ accessToken: mapboxToken })
 
 module.exports.index = async (req, res, next) => {
-    let campgrounds, allCamps
+    let campgrounds, allCamps, text
     let search = req.query.search
+
     const { page = '1' } = req.query
     if (page < 1) {
         return res.redirect('/campgrounds')
@@ -20,12 +21,18 @@ module.exports.index = async (req, res, next) => {
         search = search.toLowerCase();
         allCamps = await campground.find({ title: { $regex: '.*' + search + '.*' } }).populate('reviews')
         campgrounds = await campground.find({ title: { $regex: '.*' + search + '.*' } }).skip(startIndex).limit(6).populate('reviews')
+        if (allCamps.length) {
+            text = `Search results for "${search}"`
+        } else {
+            text = "No Results"
+        }
     } else {
         allCamps = await Campground.find();
         campgrounds = await Campground.find({}).skip(startIndex).limit(6).populate('reviews')
+        text = "All Campgrounds"
     }
 
-    res.render('campgrounds/index.ejs', { campgrounds, allCamps, page, search })
+    res.render('campgrounds/index.ejs', { campgrounds, allCamps, page, search, text })
 }
 
 module.exports.new = (req, res) => {
