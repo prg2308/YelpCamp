@@ -32,15 +32,15 @@ async function seedDB() {
             },
             images: [
                 {
-                    url: 'https://res.cloudinary.com/dmal3lkc1/image/upload/v1633027847/YelpCamp/sample_cwp8tg.jpg',
-                    filename: 'YelpCamp/sample_cwp8tg',
+                    url: 'https://res.cloudinary.com/dmal3lkc1/image/upload/v1633027847/YelpCamp/sample_a2shwd.jpg',
+                    filename: 'YelpCamp/sample_a2shwd',
                 },
                 {
-                    url: 'https://res.cloudinary.com/dmal3lkc1/image/upload/v1633027847/YelpCamp/sample_cwp8tg.jpg',
-                    filename: 'YelpCamp/sample_cwp8tg',
+                    url: 'https://res.cloudinary.com/dmal3lkc1/image/upload/v1633027847/YelpCamp/sample_a2shwd.jpg',
+                    filename: 'YelpCamp/sample_a2shwd',
                 },
                 {
-                    url: 'https://res.cloudinary.com/dmal3lkc1/image/upload/v1633027847/YelpCamp/sample_cwp8tg.jpg',
+                    url: 'https://res.cloudinary.com/dmal3lkc1/image/upload/v1633027847/YelpCamp/sample_a2shwd.jpg',
                     filename: 'YelpCamp/sample_cwp8tg',
                 },
             ],
