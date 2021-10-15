@@ -75,9 +75,6 @@ app.get('/', (req, res) => {
 app.use('/', userRoutes)
 app.use('/campgrounds', campgroundRoutes)
 app.use('/campgrounds/:id/reviews', reviewRoutes)
-app.get('/yeet',(req,res)=>{
-    res.render('campgrounds/random')
-})
 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page not found', 404))

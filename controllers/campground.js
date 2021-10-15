@@ -11,6 +11,9 @@ module.exports.index = async (req, res, next) => {
     let campgrounds, allCamps
     let search = req.query.search
     const { page = '1' } = req.query
+    if (page < 1) {
+        return res.redirect('/campgrounds')
+    }
     const startIndex = (page - 1) * 6
     const endIndex = page * 6
     if (search) {

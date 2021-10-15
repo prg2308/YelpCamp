@@ -124,21 +124,23 @@
                         </div>
                         <% } %>
                             <div class="pagination-div">
-                                <ul class="pagination justify-content-center">
+                                <ul class="pagination justify-content-center pagination-ul">
                                     <li class="page-item previous">
                                         <a class="page-link"
-                                            href="/campgrounds?page=<%= parseInt(page)-1 %>&search=<%= search %>">Previous</a>
+                                            href="/campgrounds?page=<%= parseInt(page)-1 %>&search=<%= search %>">&larr;</a>
                                     </li>
-                                    <% const pagArrayFirst=[1,2,3] %>
+                                    <% const pagArrayFirst=[1,2] %>
                                         <% if(!pagArrayFirst.includes(parseInt(page))){ %>
                                             <li class="page-item first">
                                                 <a class="page-link"
                                                     href="/campgrounds?page=1&search=<%= search %>">1</a>
                                             </li>
-                                            <li class="page-item disabled">
-                                                <span class="page-link">...</span>
-                                            </li>
+                                            <% if(parseInt(page)!==3){ %>
+                                                <li class="page-item disabled">
+                                                    <span class="page-link">...</span>
+                                                </li>
                                             <% } %>
+                                             <% } %>
                                                 <% if(parseInt(page)!==1){ %>
                                                     <li class="page-item"><a class="page-link"
                                                             href="/campgrounds?page=<%= parseInt(page)-1 %>&search=<%= search %>">
@@ -146,7 +148,7 @@
                                                         </a>
                                                     </li>
                                                     <% } %>
-                                                        <li class="page-item"><a class="page-link"
+                                                        <li class="page-item active"><a class="page-link"
                                                                 href="/campgrounds?page=<%= page %>&search=<%= search %>">
                                                                 <%= page %>
                                                             </a>
@@ -161,12 +163,13 @@
                                                             <% } %>
 
                                                         <% const pagArrayLast=[parseInt(Math.ceil(allCamps.length/6)),
-                                                            parseInt(Math.ceil(allCamps.length/6))-1,
-                                                            parseInt(Math.ceil(allCamps.length/6))-2 ] %>
+                                                            parseInt(Math.ceil(allCamps.length/6))-1 ] %>
                                                             <% if(!pagArrayLast.includes(parseInt(page))){ %>
-                                                                <li class="page-item disabled">
-                                                                    <span class="page-link">...</span>
-                                                                </li>
+                                                                <% if(parseInt(page)!== Math.ceil(allCamps.length/6)-2 ){ %>
+                                                                    <li class="page-item disabled">
+                                                                        <span class="page-link">...</span>
+                                                                    </li>
+                                                                <% } %>
                                                                 <li class="page-item last">
                                                                     <a class="page-link"
                                                                         href="/campgrounds?page=<%= Math.ceil(allCamps.length/6) %>&search=<%= search %>">
@@ -176,15 +179,15 @@
                                                                 <% } %>
                                                                     <li class="page-item next">
                                                                         <a class="page-link"
-                                                                            href="/campgrounds?page=<%= parseInt(page)+1 %>&search=<%= search %>">Next</a>
+                                                                            href="/campgrounds?page=<%= parseInt(page)+1 %>&search=<%= search %>">&rarr;</a>
                                                                     </li>
                                 </ul>
                             </div>
                 </div>
         </main>
         <script>
-            const campgrounds = { features:<% - JSON.stringify(campgrounds) %>}
-            const page = <% - JSON.stringify(page) %>
+            const campgrounds = { features:<%- JSON.stringify(allCamps) %>}
+            const page = <%- JSON.stringify(page) %>
             const previous = document.querySelector('.previous')
             const next = document.querySelector('.next')
             if (parseInt(page) === Math.ceil(campgrounds.features.length / 6)) {
@@ -281,6 +284,14 @@
     .bg-trans {
         background-color: transparent;
         transition: all 0.25s;
+    }
+    
+    .pagination-div{
+        padding-top: 2rem;
+    }
+
+    .pagination-ul{
+        margin: 0;
     }
 
     @media (min-width:992px) {
