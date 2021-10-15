@@ -11,9 +11,9 @@ module.exports.index = async (req, res, next) => {
     let campgrounds
     if (req.query.search) {
         const search = req.query.search.toLowerCase();
-        campgrounds = await campground.find({ title: { $regex: '.*' + search + '.*' } })
+        campgrounds = await campground.find({ title: { $regex: '.*' + search + '.*' } }).populate('reviews')
     } else {
-        campgrounds = await Campground.find({})
+        campgrounds = await Campground.find({}).populate('reviews')
     }
     res.render('campgrounds/index.ejs', { campgrounds })
 }

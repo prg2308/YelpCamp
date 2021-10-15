@@ -42,7 +42,7 @@
                     <li class="list-group-item">
                         Submitted by <%= campground.author.username %>
                     </li>
-                    <li class="list-group-item">$<%= campground.price%>/night</li>
+                    <li class="list-group-item">₹<%= campground.price%>/night</li>
                 </ul>
                 <% if(currentUser && campground.author._id.equals(currentUser._id)){ %>
                     <div class="card-body">
@@ -135,10 +135,10 @@
                                         <div class='text-secondary'>
                                             <% for(let star=0;star <review.rating;star++){ %>
                                                 &#9733;
-                                                <% } %>
-                                                    <%for(let star=review.rating;star<5;star++){ %>
-                                                        &#9734;
-                                                        <%}%>
+                                            <% } %>
+                                            <%for(let star=review.rating;star<5;star++){ %>
+                                                &#9734;
+                                            <% } %>
                                         </div>
                                     </h5>
                                     <p class="card-text">

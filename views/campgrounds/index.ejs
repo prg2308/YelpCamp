@@ -46,38 +46,87 @@
         <main class="container my-5">
             <%- include('../partials/flash.ejs') %>
                 <h1>All Campgrounds</h1>
-                <ul style="padding-left: 0;">
+                <div class="row camps-row">
                     <% for(let campground of campgrounds){ %>
-                        <div class="card mb-3">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <img class="img-fluid" src="<%= campground.images[0].url %>"
-                                        alt="<%= campground.title %>">
-                                </div>
-                                <div class="col-md-8 text-truncate">
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            <%= campground.title.charAt(0).toUpperCase() + campground.title.slice(1); %>
-                                        </h5>
-                                        <p class="card-text">
-                                            <%= campground.description %>
-                                        </p>
-                                        <p>
-                                            <small class="text-muted">
-                                                <%= campground.location %>
-                                            </small>
-                                        </p>
-                                        <a href="/campgrounds/<%= campground._id %>" class="btn btn-primary">View
-                                            more</a>
+                        <div class="col-lg-4 camp-col">
+                            <div class="card camp-card">
+                                <img src="<%= campground.images[0].url %>" class="card-img-top camp-img"
+                                    alt="<%= campground.title %>">
+                                <div class="card-body camp-card-body">
+                                    <div class="row camp-info">
+                                        <div class="col-9">
+                                            <a href="/campgrounds/<%= campground._id %>" class="camp-title-anchor">
+                                                <h5 class="card-title camp-card-title">
+                                                    <%= campground.title.charAt(0).toUpperCase() +
+                                                        campground.title.slice(1); %>
+                                                </h5>
+                                            </a>
+                                        </div>
+                                        <div class="col-3 camp-price">
+                                            <h5 class="camp-price-h5">
+                                                <% if(campground.price<1000){ %>
+                                                    $
+                                                    <% }else if(campground.price>750 && campground.price<2000){ %>
+                                                            $$
+                                                            <% }else{ %>
+                                                                $$$
+                                                                <% } %>
+                                            </h5>
+                                        </div>
                                     </div>
+                                    <div class="row camp-rating-row">
+                                        <div class="col-12 camp-rating text-secondary">
+                                            <% let avg=0 %>
+                                                <% for(review of campground.reviews){ %>
+                                                    <% if(review){ %>
+                                                        <% avg+=parseInt(review.rating)%>
+                                                            <% } %>
+                                                                <% } %>
+                                                                    <% if(campground.reviews.length){ %>
+                                                                        <span class="rating-span">
+                                                                            <% for(let star=0;star
+                                                                                <Math.floor(avg/campground.reviews.length)
+                                                                                ;star++){ %>
+                                                                                &#9733;
+                                                                                <% } %>
+                                                                                    <%for(let
+                                                                                        star=Math.floor(avg/campground.reviews.length)
+                                                                                        ;star<5;star++){ %>
+                                                                                        &#9734;
+                                                                                        <% } %>
+                                                                        </span>
+                                                                        <span class="no-rating">
+                                                                            <%= campground.reviews.length %>
+                                                                                <% if(campground.reviews.length===1){ %>
+                                                                                    review
+                                                                                    <% }else{ %>
+                                                                                        reviews
+                                                                                        <% } %>
+                                                                        </span>
+                                                                        <% }else{ %>
+                                                                            <span class="card-subtitle text-muted">(No
+                                                                                reviews yet)</span>
+                                                                            <% } %>
+                                        </div>
+                                    </div>
+                                    <p class="card-text camp-card-text">
+                                        <% if(campground.description.length>80){ %>
+                                            <%= campground.description.slice(0,80) + '...' %>
+                                                <% }else{ %>
+                                                    <%= campground.description %>
+                                                        <%for(let i=campground.description.length;i<80;i++){%>
+                                                            &nbsp;
+                                                            <%}%>
+                                                                <% } %>
+                                    </p>
                                 </div>
                             </div>
                         </div>
                         <% } %>
-                </ul>
+                </div>
         </main>
         <script>
-            const campgrounds = { features:<% - JSON.stringify(campgrounds) %>}
+            const campgrounds = { features:<%- JSON.stringify(campgrounds) %>}
         </script>
         <script src="/js/clusterMap.js"></script>
         <%- include('../partials/footer.ejs') %>
@@ -103,8 +152,13 @@
         padding-bottom: 0.5rem;
     }
 
+    .camps-row {
+        background-color: #f5f5f5;
+    }
+
     .search-sort-container {
         background-color: white;
+        box-shadow: 0 4px 8px 0 rgb(0 0 0 / 7%);
     }
 
     .search-sort-bar {
@@ -121,6 +175,46 @@
 
     .btn-search {
         padding: 0;
+    }
+
+    .camp-card {
+        margin: 1rem;
+        border: none;
+        box-shadow: 0 4px 8px 0 rgb(0 0 0 / 10%), 0 6px 20px 0 rgb(0 0 0 / 9%);
+    }
+
+    .camp-info {
+        padding-bottom: 0;
+    }
+
+    .camp-price {
+        padding-left: 1.25rem;
+        padding-right: 0;
+    }
+
+    .camp-price-h5 {
+        margin-bottom: 0;
+    }
+
+    .camp-card-title {
+        margin-bottom: 0;
+    }
+
+    .camp-title-anchor {
+        text-decoration: none;
+    }
+
+    .no-rating {
+        padding-left: 1rem;
+    }
+
+    .bg-dark {
+        transition: all 0.25s;
+    }
+
+    .bg-trans {
+        background-color: transparent;
+        transition: all 0.25s;
     }
 
     @media (min-width:992px) {
@@ -141,5 +235,18 @@
         }
     }
 </style>
+
+<script>
+    const navbar = document.querySelector('.navbar');
+    window.onscroll = () => {
+        if (window.scrollY > 100) {
+            navbar.classList.add('bg-dark');
+            navbar.classList.remove('bg-trans');
+        } else {
+            navbar.classList.add('bg-trans');
+            navbar.classList.remove('bg-dark');
+        }
+    };
+</script>
 
 </html>
