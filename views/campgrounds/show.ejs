@@ -1,9 +1,7 @@
 <% layout('/layouts/boilerplate') %>
     <div class="row">
-        <div class="col-6">
+        <div class="col-lg-6">
             <div class="card">
-                <!-- map -->
-                <!-- <div id='map' style='width: 400px; height: 300px;'></div> -->
                 <div id="carouselControl" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <% campground.images.forEach((img,i)=>{ %>
@@ -29,7 +27,7 @@
 
                 <div class="card-body">
                     <h5 class="card-title">
-                        <%= campground.title %>
+                        <%= campground.title%> 
                     </h5>
                     <p class="card-text">
                         <%= campground.description %>
@@ -58,7 +56,7 @@
             </div>
         </div>
         <% if(currentUser){ %>
-            <div class="col-6">
+            <div class="col-lg-6">
                 <div id='map' style='width: 100%; height: 300px;'></div>
                 <hr>
                 <h2 class="mt-3">Leave a review</h2>
@@ -121,7 +119,7 @@
                 </div>
             </div>
             <% }else{ %>
-                <div class="col-6">
+                <div class="col-lg-6">
                     <div id='map' style='width: 100%; height: 300px;'></div>
                     <hr>
                     <div class="mt-3">
@@ -135,10 +133,10 @@
                                         <div class='text-secondary'>
                                             <% for(let star=0;star <review.rating;star++){ %>
                                                 &#9733;
-                                            <% } %>
-                                            <%for(let star=review.rating;star<5;star++){ %>
-                                                &#9734;
-                                            <% } %>
+                                                <% } %>
+                                                    <%for(let star=review.rating;star<5;star++){ %>
+                                                        &#9734;
+                                                        <% } %>
                                         </div>
                                     </h5>
                                     <p class="card-text">
@@ -156,4 +154,21 @@
     <script>
         const campground = <%- JSON.stringify(campground) %>
     </script>
+
+    <style>
+        .bg-trans {
+            --bs-bg-opacity: 1;
+            background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+        }
+
+        .card-title{
+            text-transform: capitalize;
+        }
+
+        @media (max-width:992px) {
+            .mapboxgl-canvas{
+                padding-top: 2rem;
+            }
+        }
+    </style>
     <script defer src="/js/mapScript.js"></script>
