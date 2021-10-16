@@ -60,7 +60,7 @@ body {
 }
 
 .sort-group {
-    width: 40%;
+    width: 30%;
 }
 
 .search-group {
@@ -131,6 +131,9 @@ body {
 }
 
 @media (min-width:768px) and (max-width: 991px) {
+    .sort-group{
+        width:50%;
+    }
     .search-col {
         padding-left: 7rem;
     }
@@ -142,6 +145,9 @@ body {
 }
 
 @media (max-width:768px) {
+    .sort-group{
+        width:100%;
+    }
     .search-col {
         padding-left: 4rem;
     }

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const getDate = require('../utilities/date')
 const { cloudinary } = require('../config/cloudinary')
 const ExpressError = require('../utilities/ExpressError')
 const Campground = require('../models/campground')
@@ -10,6 +11,7 @@ const geoCoder = mbxGeocoding({ accessToken: mapboxToken })
 module.exports.index = async (req, res, next) => {
     let campgrounds, allCamps, text
     let search = req.query.search
+    const Url = req.url
 
     const { page = '1' } = req.query
     if (page < 1) {
@@ -20,7 +22,9 @@ module.exports.index = async (req, res, next) => {
     if (search) {
         search = search.toLowerCase();
         allCamps = await campground.find({ title: { $regex: '.*' + search + '.*' } }).populate('reviews')
-        campgrounds = await campground.find({ title: { $regex: '.*' + search + '.*' } }).skip(startIndex).limit(6).populate('reviews')
+        campgrounds = await campground.find({ title: { $regex: '.*' + search + '.*' } }).skip(startIndex).limit(6).populate('reviews').sort({
+            timestamp: 'desc'
+        })
         if (allCamps.length) {
             text = `Search results for "${search}"`
         } else {
@@ -28,11 +32,13 @@ module.exports.index = async (req, res, next) => {
         }
     } else {
         allCamps = await Campground.find();
-        campgrounds = await Campground.find({}).skip(startIndex).limit(6).populate('reviews')
+        campgrounds = await Campground.find({}).skip(startIndex).limit(6).populate('reviews').sort({
+            timestamp: 'desc'
+        })
         text = "All Campgrounds"
     }
 
-    res.render('campgrounds/index.ejs', { campgrounds, allCamps, page, search, text })
+    res.render('campgrounds/index.ejs', { campgrounds, allCamps, page, search, text, Url })
 }
 
 module.exports.new = (req, res) => {
@@ -77,9 +83,11 @@ module.exports.create = async (req, res) => {
     if (!req.files) {
         throw new ExpressError('Images are required', 400)
     }
+    const date = getDate()
     campground.images = req.files.map(f => ({ url: f.path, filename: f.filename }))
     campground.author = req.user._id
     campground.geometry = geoData.body.features[0].geometry
+    campground.createDate = date;
     await campground.save();
     req.flash('success', 'Created new Campground!')
     res.redirect(`/campgrounds/${campground._id}`)

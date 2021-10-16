@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const cities = require('./cities.js')
 const { descriptors, places } = require('./seedHelpers')
 const Campground = require('../models/campground')
+const getDate = require('../utilities/date')
 
 mongoose.connect('mongodb://localhost:27017/yelpcamp', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
@@ -20,6 +21,7 @@ async function seedDB() {
     for (let i = 0; i < 200; i++) {
         const randomNo = Math.floor(Math.random() * 769)
         const price = Math.floor(Math.random() * 2000) + 500
+        const date = getDate()
         const camp = new Campground({
             author: '6144cba850a19a7cdc470164',
             title: `${randArray(descriptors)} ${randArray(places)}`,
@@ -47,6 +49,8 @@ async function seedDB() {
             price,
             description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut nemo totam, doloribus iusto architecto consequatur quo quia! Amet perferendis quia molestiae consequatur sapiente ducimus illo quae cumque nisi architecto!',
             location: `${cities[randomNo].city}, ${cities[randomNo].country}`,
+            timestamp: Date.now(),
+            createDate: date
         })
         await camp.save()
     }

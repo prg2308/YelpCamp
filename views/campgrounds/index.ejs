@@ -20,17 +20,26 @@
         <div class="search-sort-container">
             <div class="container">
                 <div class="row search-sort-bar">
-                    <div class="col-6 dropdown sort-group">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Sort By
-                        </a>
-
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
+                    <div class="col-6 dropdown">
+                        <!-- <form class="search-group">
+                            <span class="input-group-text search-span" id="basic-addon1"><button
+                                class="btn btn-search">Sort By</button></span>
+                            <select class="form-select sort-group" aria-label="Default select example">
+                                <option selected>Sort By</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </form> -->
+                        <form class="input-group search-group sort-group">
+                            <span class="input-group-text search-span" id="basic-addon1"><button
+                                    class="btn btn-search">Sort By</i></button></span>
+                                    <select class="form-select sort-group" name="sort">
+                                        <option value="date">Date Of Creation</option>
+                                        <option value="asc">Cheapest First</option>
+                                        <option value="desc">Most Expensive First</option>
+                                    </select>
+                        </form>
                     </div>
                     <div class="col-6 search-col">
                         <form class="input-group search-group">

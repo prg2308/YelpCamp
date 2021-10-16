@@ -1,3 +1,4 @@
+const { string, number } = require('joi');
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const opts = { toJSON: { virtuals: true } };
@@ -47,6 +48,15 @@ const campgroundSchema = new Schema({
     author: {
         type: Schema.Types.ObjectId,
         ref: 'User'
+    },
+    timestamp: {
+        type: Number,
+        default: Date.now,
+        required: true
+    },
+    createDate: {
+        type: String,
+        required: true
     },
     reviews: [
         {
