@@ -2,10 +2,16 @@ const Review = require('../models/review')
 const Campground = require('../models/campground')
 
 module.exports.create = async (req, res) => {
-    const campground = await Campground.findById(req.params.id)
+    let total = 0;
+    const campground = await Campground.findById(req.params.id).populate('reviews')
     const review = new Review(req.body)
     review.author = req.user._id
     campground.reviews.push(review)
+    for (rev of campground.reviews) {
+        total += parseInt(rev.rating)
+    }
+    campground.avgRating = Math.floor(total / (campground.reviews.length))
+    console.log(campground.avgRating)
     await review.save()
     await campground.save()
     req.flash('success', 'Added Review!')

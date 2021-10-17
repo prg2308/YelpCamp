@@ -21,6 +21,7 @@ async function seedDB() {
     for (let i = 0; i < 200; i++) {
         const randomNo = Math.floor(Math.random() * 769)
         const price = Math.floor(Math.random() * 2000) + 500
+        const avgRating = Math.floor(Math.random() * 5) + 1
         const date = getDate()
         const camp = new Campground({
             author: '6144cba850a19a7cdc470164',
@@ -50,7 +51,8 @@ async function seedDB() {
             description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aut nemo totam, doloribus iusto architecto consequatur quo quia! Amet perferendis quia molestiae consequatur sapiente ducimus illo quae cumque nisi architecto!',
             location: `${cities[randomNo].city}, ${cities[randomNo].country}`,
             timestamp: Date.now(),
-            createDate: date
+            createDate: date,
+            avgRating
         })
         await camp.save()
     }

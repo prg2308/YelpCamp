@@ -20,14 +20,16 @@
         <div class="search-sort-container">
             <div class="container">
                 <div class="row search-sort-bar">
-                    <div class="col-6 dropdown">
+                    <div class="col-12 dropdown">
                         <form class="input-group search-group">
                             <span class="input-group-text search-span" id="basic-addon1"><button
                                     class="btn btn-search">Sort By</i></button></span>
                             <select class="form-select sort-group" name="sort">
                                 <option value="date">Date Of Creation</option>
-                                <option value="asc">Cheapest First</option>
-                                <option value="desc">Most Expensive First</option>
+                                <option value="pa">Cheapest First</option>
+                                <option value="pd">Most Expensive First</option>
+                                <option value="ra">Highest Rated first</option>
+                                <option value="rd">Lowest Rated first</option>
                             </select>
 
                             <input type="text" class="form-control search-bar" placeholder="Search Campgrounds..."
@@ -81,7 +83,20 @@
                                     </div>
                                     <div class="row camp-rating-row">
                                         <div class="col-12 camp-rating text-secondary">
-                                            <% let avg=0 %>
+                                            <span class="rating-span">
+                                                <% for(let star=0;star
+                                                    <campground.avgRating
+                                                    ;star++){ %>
+                                                    &#9733;
+                                                    <% } %>
+                                                        <%for(let
+                                                            star=campground.avgRating
+                                                            ;star<5;star++){ %>
+                                                            &#9734;
+                                                            <% } %>
+                                            </span>
+                                            <span><%= campground.avgRating %></span>
+                                            <!-- <% let avg=0 %>
                                                 <% for(review of campground.reviews){ %>
                                                     <% if(review){ %>
                                                         <% avg+=parseInt(review.rating)%>
@@ -90,12 +105,12 @@
                                                                     <% if(campground.reviews.length){ %>
                                                                         <span class="rating-span">
                                                                             <% for(let star=0;star
-                                                                                <Math.floor(avg/campground.reviews.length)
+                                                                                <campground.avgRating
                                                                                 ;star++){ %>
                                                                                 &#9733;
                                                                                 <% } %>
                                                                                     <%for(let
-                                                                                        star=Math.floor(avg/campground.reviews.length)
+                                                                                        star=campground.avgRating
                                                                                         ;star<5;star++){ %>
                                                                                         &#9734;
                                                                                         <% } %>
@@ -111,7 +126,7 @@
                                                                         <% }else{ %>
                                                                             <span class="card-subtitle text-muted">(No
                                                                                 reviews yet)</span>
-                                                                            <% } %>
+                                                                            <% } %> -->
                                         </div>
                                     </div>
                                     <p class="card-text camp-card-text">

@@ -31,23 +31,34 @@ module.exports.index = async (req, res, next) => {
                         timestamp: 'desc'
                     })
                     break;
-                case 'asc':
+                case 'pa':
                     campgrounds = await campground.find({ title: { $regex: '.*' + search + '.*' } }).skip(startIndex).limit(6).populate('reviews').sort({
                         price: 'asc'
                     })
                     break;
-                case 'desc':
+                case 'pd':
                     campgrounds = await campground.find({ title: { $regex: '.*' + search + '.*' } }).skip(startIndex).limit(6).populate('reviews').sort({
                         price: 'desc'
                     })
                     break;
-                // case 'rating':
-                //     campgrounds = await campground.find({ title: { $regex: '.*' + search + '.*' } }).skip(startIndex).limit(6).populate('reviews').sort({
-                //         price: 'desc'
-                //     })
+                case 'ra':
+                    campgrounds = await campground.find({ title: { $regex: '.*' + search + '.*' } }).skip(startIndex).limit(6).populate('reviews').sort({
+                        avgRating: 'desc'
+                    })
+                    break;
+                case 'rd':
+                    campgrounds = await campground.find({ title: { $regex: '.*' + search + '.*' } }).skip(startIndex).limit(6).populate('reviews').sort({
+                        avgRating: 'asc'
+                    })
+                    break;
                 default:
                     return res.redirect('/campgrounds')
             }
+        }
+        if (allCamps.length) {
+            text = `Search results for "${search}"`
+        } else {
+            text = `No results :(`
         }
     } else {
         allCamps = await Campground.find();
@@ -61,20 +72,26 @@ module.exports.index = async (req, res, next) => {
                         timestamp: 'desc'
                     })
                     break;
-                case 'asc':
+                case 'pa':
                     campgrounds = await campground.find({}).skip(startIndex).limit(6).populate('reviews').sort({
                         price: 'asc'
                     })
                     break;
-                case 'desc':
+                case 'pd':
                     campgrounds = await campground.find({}).skip(startIndex).limit(6).populate('reviews').sort({
                         price: 'desc'
                     })
                     break;
-                // case 'rating':
-                //     campgrounds = await campground.find({ title: { $regex: '.*' + search + '.*' } }).skip(startIndex).limit(6).populate('reviews').sort({
-                //         price: 'desc'
-                //     })
+                case 'ra':
+                    campgrounds = await campground.find({}).skip(startIndex).limit(6).populate('reviews').sort({
+                        avgRating: 'desc'
+                    })
+                    break;
+                case 'rd':
+                    campgrounds = await campground.find({}).skip(startIndex).limit(6).populate('reviews').sort({
+                        avgRating: 'asc'
+                    })
+                    break;
                 default:
                     return res.redirect('/campgrounds')
             }

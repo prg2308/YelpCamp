@@ -63,7 +63,8 @@ const campgroundSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Review'
         }
-    ]
+    ],
+    avgRating: Number
 }, opts)
 
 campgroundSchema.virtual('properties.popUpMarkUp').get(function () {
