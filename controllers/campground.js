@@ -10,8 +10,7 @@ const geoCoder = mbxGeocoding({ accessToken: mapboxToken })
 
 module.exports.index = async (req, res, next) => {
     let campgrounds, allCamps, text
-    let search = req.query.search
-    const Url = req.url
+    let { search, sort } = req.query
 
     const { page = '1' } = req.query
     if (page < 1) {
@@ -25,20 +24,65 @@ module.exports.index = async (req, res, next) => {
         campgrounds = await campground.find({ title: { $regex: '.*' + search + '.*' } }).skip(startIndex).limit(6).populate('reviews').sort({
             timestamp: 'desc'
         })
-        if (allCamps.length) {
-            text = `Search results for "${search}"`
-        } else {
-            text = "No Results"
+        if (sort) {
+            switch (sort) {
+                case 'date':
+                    campgrounds = await campground.find({ title: { $regex: '.*' + search + '.*' } }).skip(startIndex).limit(6).populate('reviews').sort({
+                        timestamp: 'desc'
+                    })
+                    break;
+                case 'asc':
+                    campgrounds = await campground.find({ title: { $regex: '.*' + search + '.*' } }).skip(startIndex).limit(6).populate('reviews').sort({
+                        price: 'asc'
+                    })
+                    break;
+                case 'desc':
+                    campgrounds = await campground.find({ title: { $regex: '.*' + search + '.*' } }).skip(startIndex).limit(6).populate('reviews').sort({
+                        price: 'desc'
+                    })
+                    break;
+                // case 'rating':
+                //     campgrounds = await campground.find({ title: { $regex: '.*' + search + '.*' } }).skip(startIndex).limit(6).populate('reviews').sort({
+                //         price: 'desc'
+                //     })
+                default:
+                    return res.redirect('/campgrounds')
+            }
         }
     } else {
         allCamps = await Campground.find();
-        campgrounds = await Campground.find({}).skip(startIndex).limit(6).populate('reviews').sort({
+        campgrounds = await campground.find({}).skip(startIndex).limit(6).populate('reviews').sort({
             timestamp: 'desc'
         })
+        if (sort) {
+            switch (sort) {
+                case 'date':
+                    campgrounds = await campground.find({}).skip(startIndex).limit(6).populate('reviews').sort({
+                        timestamp: 'desc'
+                    })
+                    break;
+                case 'asc':
+                    campgrounds = await campground.find({}).skip(startIndex).limit(6).populate('reviews').sort({
+                        price: 'asc'
+                    })
+                    break;
+                case 'desc':
+                    campgrounds = await campground.find({}).skip(startIndex).limit(6).populate('reviews').sort({
+                        price: 'desc'
+                    })
+                    break;
+                // case 'rating':
+                //     campgrounds = await campground.find({ title: { $regex: '.*' + search + '.*' } }).skip(startIndex).limit(6).populate('reviews').sort({
+                //         price: 'desc'
+                //     })
+                default:
+                    return res.redirect('/campgrounds')
+            }
+        }
+
         text = "All Campgrounds"
     }
-
-    res.render('campgrounds/index.ejs', { campgrounds, allCamps, page, search, text, Url })
+    res.render('campgrounds/index.ejs', { campgrounds, allCamps, page, search, sort, text, })
 }
 
 module.exports.new = (req, res) => {
