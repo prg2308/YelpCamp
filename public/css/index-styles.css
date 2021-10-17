@@ -65,6 +65,7 @@ body {
 
 .search-group {
     margin-bottom: 0;
+    justify-content: space-between;
 }
 
 .btn-search {
@@ -117,6 +118,14 @@ body {
 
 .pagination-ul {
     margin: 0;
+}
+
+.margin-sort{
+    margin-right: 20rem !important;
+}
+
+.margin-search{
+    margin-left: 20rem !important;
 }
 
 @media (min-width:992px) {
