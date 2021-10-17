@@ -22,9 +22,9 @@
                 <div class="row search-sort-bar">
                     <div class="col-12 dropdown">
                         <form class="input-group search-group">
-                            <span class="input-group-text search-span" id="basic-addon1"><button
+                            <span class="input-group-text search-span border-left" id="basic-addon1"><button
                                     class="btn btn-search">Sort By</i></button></span>
-                            <select class="form-select sort-group margin-sort" name="sort">
+                            <select class="form-select sort-group margin-sort border-right" name="sort">
                                 <option value="date">Date Of Creation</option>
                                 <option value="pa">Cheapest First</option>
                                 <option value="pd">Most Expensive First</option>
@@ -32,9 +32,9 @@
                                 <option value="rd">Lowest Rated First</option>
                             </select>
 
-                            <input type="text" class="form-control search-bar margin-search" placeholder="Search..."
+                            <input type="text" class="form-control search-bar margin-search border-left" placeholder="Search..."
                                 aria-describedby="basic-addon1" name="search" value="<%= search %>">
-                            <span class="input-group-text search-span" id="basic-addon1"><button
+                            <span class="input-group-text search-span border-right" id="basic-addon1"><button
                                 class="btn btn-search"><i class="fas fa-search"></i></button></span>
                         </form>
                     </div>
@@ -219,14 +219,19 @@
         <script>
             const campgrounds = { features:<%- JSON.stringify(allCamps) %> }
             const page = <%- JSON.stringify(page) %>
+            const index = <%- JSON.stringify(index) %>
             const previous = document.querySelector('.previous')
             const next = document.querySelector('.next')
+            const sort = document.querySelector('.form-select')
             if (parseInt(page) === Math.ceil(campgrounds.features.length / 6)) {
                 next.classList.add('disabled')
             }
             if (parseInt(page) === 1) {
                 previous.classList.add('disabled')
             }
+
+            sort.selectedIndex = index;
+
         </script>
         <script src="/js/clusterMap.js"></script>
         <%- include('../partials/footer.ejs') %>

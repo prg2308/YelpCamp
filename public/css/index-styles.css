@@ -128,6 +128,15 @@ body {
     margin-left: 20rem !important;
 }
 
+.border-left{
+    border-top-left-radius: 12px !important;
+    border-bottom-left-radius: 12px !important; 
+}
+.border-right{
+    border-top-right-radius: 12px !important;
+    border-bottom-right-radius: 12px !important; 
+}
+
 @media (min-width:992px) {
     .search-col {
         padding-left: 20rem;
@@ -136,6 +145,10 @@ body {
     .divider-right{
         position: relative;
         left: 1px;
+    }
+
+    .camp-img{
+        height: 216px;
     }
 }
 
@@ -151,6 +164,14 @@ body {
         position: relative;
         left: 6px;
     }
+
+    .margin-sort{
+        margin-right: 10rem !important;
+    }
+    
+    .margin-search{
+        margin-left: 10rem !important;
+    }
 }
 
 @media (max-width:768px) {
@@ -164,5 +185,13 @@ body {
     .divider-right{
         position: relative;
         left: 8px;
+    }
+
+    .margin-sort{
+        margin-right: 2rem !important;
+    }
+    
+    .margin-search{
+        margin-left: 2rem !important;
     }
 }

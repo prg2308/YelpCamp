@@ -9,7 +9,7 @@ const campground = require('../models/campground')
 const geoCoder = mbxGeocoding({ accessToken: mapboxToken })
 
 module.exports.index = async (req, res, next) => {
-    let campgrounds, allCamps, text
+    let campgrounds, allCamps, text, index
     let { search, sort } = req.query
 
     const { page = '1' } = req.query
@@ -24,33 +24,39 @@ module.exports.index = async (req, res, next) => {
         campgrounds = await campground.find({ title: { $regex: '.*' + search + '.*' } }).skip(startIndex).limit(6).populate('reviews').sort({
             timestamp: 'desc'
         })
+        index = 0;
         if (sort) {
             switch (sort) {
                 case 'date':
                     campgrounds = await campground.find({ title: { $regex: '.*' + search + '.*' } }).skip(startIndex).limit(6).populate('reviews').sort({
                         timestamp: 'desc'
                     })
+                    index = 0;
                     break;
                 case 'pa':
                     campgrounds = await campground.find({ title: { $regex: '.*' + search + '.*' } }).skip(startIndex).limit(6).populate('reviews').sort({
                         price: 'asc'
                     })
+                    index = 1;
                     break;
                 case 'pd':
                     campgrounds = await campground.find({ title: { $regex: '.*' + search + '.*' } }).skip(startIndex).limit(6).populate('reviews').sort({
                         price: 'desc'
                     })
+                    index = 2;
                     break;
                 case 'ra':
                     campgrounds = await campground.find({ title: { $regex: '.*' + search + '.*' } }).skip(startIndex).limit(6).populate('reviews').sort({
                         avgRating: 'desc'
                     })
+                    index = 3;
                     break;
                 case 'rd':
                     campgrounds = await campground.find({ title: { $regex: '.*' + search + '.*' } }).skip(startIndex).limit(6).populate('reviews').sort({
                         avgRating: 'asc'
                     })
                     break;
+                    index = 4;
                 default:
                     return res.redirect('/campgrounds')
             }
@@ -65,32 +71,38 @@ module.exports.index = async (req, res, next) => {
         campgrounds = await campground.find({}).skip(startIndex).limit(6).populate('reviews').sort({
             timestamp: 'desc'
         })
+        index = 0;
         if (sort) {
             switch (sort) {
                 case 'date':
                     campgrounds = await campground.find({}).skip(startIndex).limit(6).populate('reviews').sort({
                         timestamp: 'desc'
                     })
+                    index = 0;
                     break;
                 case 'pa':
                     campgrounds = await campground.find({}).skip(startIndex).limit(6).populate('reviews').sort({
                         price: 'asc'
                     })
+                    index = 1;
                     break;
                 case 'pd':
                     campgrounds = await campground.find({}).skip(startIndex).limit(6).populate('reviews').sort({
                         price: 'desc'
                     })
+                    index = 2;
                     break;
                 case 'ra':
                     campgrounds = await campground.find({}).skip(startIndex).limit(6).populate('reviews').sort({
                         avgRating: 'desc'
                     })
+                    index = 3;
                     break;
                 case 'rd':
                     campgrounds = await campground.find({}).skip(startIndex).limit(6).populate('reviews').sort({
                         avgRating: 'asc'
                     })
+                    index = 4;
                     break;
                 default:
                     return res.redirect('/campgrounds')
@@ -99,7 +111,7 @@ module.exports.index = async (req, res, next) => {
 
         text = "All Campgrounds"
     }
-    res.render('campgrounds/index.ejs', { campgrounds, allCamps, page, search, sort, text, })
+    res.render('campgrounds/index.ejs', { campgrounds, allCamps, page, search, sort, text, index })
 }
 
 module.exports.new = (req, res) => {
