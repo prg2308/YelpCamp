@@ -20,23 +20,34 @@
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" name="password" id="password" class="form-control" required>
-                    <div class="invalid-feedback">
+                    <input type="password" name="password" id="password" class="form-control"
+                        pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$"
+                        placeholder="Minimum 8 characters with One digit, One Upppercase and One Lowercase Letter"
+                        required>
+                    <div class="invalid-feedback password-feedback">
                         Required
                     </div>
+                </div>
+                <div class="mb-3">
+                    <label for="confPassword" class="form-label">Confirm Password</label>
+                    <input type="password" name="confPassword" id="confPassword" class="form-control"
+                        pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$" required>
+                    <div class="invalid-feedback conf-feedback">
+                        Required
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <input type="checkbox" id="showPassword">
+                    <label for="showPassword">Show Password</label>
                 </div>
                 <button class="btn btn-success">Register</button>
             </form>
         </div>
     </div>
-    <script>
-        const button = document.querySelector('.btn')
-        const email = document.querySelector('#email')
-        const emailMessage = document.querySelector('.email-feedback')
-
-        button.addEventListener('click', function () {
-            if (!email.checkValidity() && email.value) {
-                emailMessage.innerText = 'Invalid Email'
-            }
-        })
-    </script>
+    <style>
+        .bg-trans {
+            --bs-bg-opacity: 1;
+            background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+        }
+    </style>
+    <script src="/js/register-script.js"></script>
