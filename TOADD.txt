@@ -1,18 +1,15 @@
-User profile page
-User details and campgrounds by user
-paginate reviews
-icons
-custom styles
-username already taken for email????
 forgot password
-add password toggle button
-email already exits
-warning flash for logout and delete
-change error back button
-add scripts to confirm delete, confirm logout and exit without saving
+user profile page
+Handle delete user by [deleted]
+add icons to footer 
 make about page
-add confirm password
-edit push on to images array in edit route
-Handle delete user , i.e on user delete, display by [deleted]
-remove comments from clusterMap.js and everywhere else
+add logo
 Add github icon to home page button
+change body background color on other routes
+paginate reviews
+
+cross site scripting 
+color scheme
+re-seed Database with realistic data
+manually add reviews and data
+deploying
