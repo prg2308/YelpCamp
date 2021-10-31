@@ -95,38 +95,13 @@
                                                             &#9734;
                                                             <% } %>
                                             </span>
-                                            <span><%= campground.avgRating %></span>
-                                            <!-- <% let avg=0 %>
-                                                <% for(review of campground.reviews){ %>
-                                                    <% if(review){ %>
-                                                        <% avg+=parseInt(review.rating)%>
-                                                            <% } %>
-                                                                <% } %>
-                                                                    <% if(campground.reviews.length){ %>
-                                                                        <span class="rating-span">
-                                                                            <% for(let star=0;star
-                                                                                <campground.avgRating
-                                                                                ;star++){ %>
-                                                                                &#9733;
-                                                                                <% } %>
-                                                                                    <%for(let
-                                                                                        star=campground.avgRating
-                                                                                        ;star<5;star++){ %>
-                                                                                        &#9734;
-                                                                                        <% } %>
-                                                                        </span>
-                                                                        <span class="no-rating">
-                                                                            <%= campground.reviews.length %>
-                                                                                <% if(campground.reviews.length===1){ %>
-                                                                                    review
-                                                                                    <% }else{ %>
-                                                                                        reviews
-                                                                                        <% } %>
-                                                                        </span>
-                                                                        <% }else{ %>
-                                                                            <span class="card-subtitle text-muted">(No
-                                                                                reviews yet)</span>
-                                                                            <% } %> -->
+                                                <% if(campground.reviews.length && campground.reviews.length===1){ %>
+                                                    <span>1 review</span>
+                                                <% }else if(campground.reviews.length && campground.reviews.length>1){ %>
+                                                    <span><%= campground.reviews.length %> reviews</span>
+                                                <% }else{ %>
+                                                    <span>(No reviews yet)</span>
+                                                <% } %>
                                         </div>
                                     </div>
                                     <p class="card-text camp-card-text">

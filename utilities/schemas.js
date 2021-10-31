@@ -1,4 +1,5 @@
 const Joi = require('joi')
+const passwordValidator = require('password-validator');
 
 module.exports.campgroundSchema = Joi.object({
     title: Joi.string().required(),
@@ -12,3 +13,13 @@ module.exports.reviewSchema = Joi.object({
     body: Joi.string().required(),
     rating: Joi.number().required().min(1).max(5)
 })
+
+const passwordSchema = new passwordValidator();
+
+passwordSchema
+    .is().min(8)
+    .has().uppercase()
+    .has().lowercase()
+    .has().digits(1)
+
+module.exports.passwordSchema = passwordSchema

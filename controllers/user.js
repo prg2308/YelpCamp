@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const { passwordSchema } = require('../utilities/schemas')
 
 module.exports.renderRegister = (req, res) => {
     res.render('users/register.ejs')
@@ -18,7 +19,20 @@ module.exports.login = async (req, res) => {
 
 module.exports.register = async (req, res) => {
     try {
-        const { email, username, password } = req.body;
+        const { email, username, password, confPassword } = req.body;
+        if (!passwordSchema.validate(password)) {
+            req.flash('error', 'Invalid Password')
+            return res.redirect('/register')
+        }
+        if (password !== confPassword) {
+            req.flash('error', 'Passwords Dont Match!')
+            return res.redirect('/register')
+        }
+        const foundUser = await User.find({ email });
+        if (foundUser.length) {
+            req.flash('error', 'Email Already Exists!')
+            return res.redirect('/register')
+        }
         const user = new User({ email, username })
         const regUser = await User.register(user, password)
         req.login(regUser, function (err) {
@@ -29,13 +43,13 @@ module.exports.register = async (req, res) => {
             res.redirect('/campgrounds')
         })
     } catch (e) {
-        req.flash('error', 'Username is already taken !')
+        req.flash('error', 'Username Taken!')
         res.redirect('/register')
     }
 }
 
 module.exports.logout = (req, res) => {
     req.logout();
-    req.flash('success', 'Logged out')
+    req.flash('warning', 'Logged out')
     res.redirect('/campgrounds')
 }

@@ -11,7 +11,6 @@ module.exports.create = async (req, res) => {
         total += parseInt(rev.rating)
     }
     campground.avgRating = Math.floor(total / (campground.reviews.length))
-    console.log(campground.avgRating)
     await review.save()
     await campground.save()
     req.flash('success', 'Added Review!')
@@ -22,6 +21,6 @@ module.exports.delete = async (req, res) => {
     const { id, reviewId } = req.params
     await Campground.findByIdAndUpdate(id, { $pull: { reviews: reviewId } })
     await Review.findByIdAndDelete(reviewId)
-    req.flash('success', 'Deleted Review')
+    req.flash('warning', 'Deleted Review')
     res.redirect(`/campgrounds/${id}`)
 }

@@ -1,31 +1,18 @@
 User profile page
 User details and campgrounds by user
-time review was added
 paginate reviews
-Contact number and other details
 icons
-update create and edit campfround pages to look better
 custom styles
 username already taken for email????
-Navigations buttons
 forgot password
 add password toggle button
 email already exits
 warning flash for logout and delete
 change error back button
-update userSchema to have an array of posts and make changes on route
 add scripts to confirm delete, confirm logout and exit without saving
 make about page
-add users controller after making routes
 add confirm password
 edit push on to images array in edit route
-ADD A LIMIT TO IMAGES
-Add image size to style sheet in edit route //not mandatory
-Add ellipses to long text
-ADD default images to user and to campgrounds
-Handle giving in wrong infromation to maps
-REMOVE IF STATEMENT FROM MODEL POST MIDDLEWARE
-when deleteUser fix seeds file user field
-Add nightmode to maps
+Handle delete user , i.e on user delete, display by [deleted]
 remove comments from clusterMap.js and everywhere else
 Add github icon to home page button

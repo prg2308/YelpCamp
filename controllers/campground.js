@@ -159,6 +159,10 @@ module.exports.create = async (req, res) => {
     const date = getDate()
     campground.images = req.files.map(f => ({ url: f.path, filename: f.filename }))
     campground.author = req.user._id
+    if (!geoData.body.features.length) {
+        req.flash('error', 'Location does not exist!')
+        return res.redirect('/campgrounds/new')
+    }
     campground.geometry = geoData.body.features[0].geometry
     campground.createDate = date;
     await campground.save();
@@ -172,6 +176,10 @@ module.exports.edit = async (req, res) => {
         limit: 1
     }).send()
     const campground = await Campground.findByIdAndUpdate(req.params.id, req.body)
+    if (!geoData.body.features.length) {
+        req.flash('error', 'Location does not exist!')
+        return res.redirect('/campgrounds/new')
+    }
     campground.geometry = geoData.body.features[0].geometry
     if (!req.files) {
         throw new ExpressError('Images are required', 400)
@@ -191,6 +199,6 @@ module.exports.edit = async (req, res) => {
 
 module.exports.delete = async (req, res) => {
     const campground = await Campground.findByIdAndDelete(req.params.id)
-    req.flash('success', `Deleted ${campground.title}`)
+    req.flash('warning', `Deleted ${campground.title}`)
     res.redirect('/campgrounds')
 }
