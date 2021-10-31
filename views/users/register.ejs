@@ -21,9 +21,8 @@
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" name="password" id="password" class="form-control"
-                        pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$"
-                        placeholder="Minimum 8 characters with One digit, One Upppercase and One Lowercase Letter"
-                        required>
+                        pattern="^(?=.*[0-9])(?=.*[a-zA-Z])(?=\S+$).{8,}$"
+                        placeholder="Minimum 8 characters with atleast One Digit and One Character" required>
                     <div class="invalid-feedback password-feedback">
                         Required
                     </div>
@@ -31,7 +30,7 @@
                 <div class="mb-3">
                     <label for="confPassword" class="form-label">Confirm Password</label>
                     <input type="password" name="confPassword" id="confPassword" class="form-control"
-                        pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$" required>
+                        pattern="^(?=.*[0-9])(?=.*[a-zA-Z])(?=\S+$).{8,}$" required>
                     <div class="invalid-feedback conf-feedback">
                         Required
                     </div>

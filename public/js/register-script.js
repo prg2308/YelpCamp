@@ -17,7 +17,7 @@ button.addEventListener('click', function () {
         if (password.value.length < 8) {
             passwordFeedback.innerText = 'Must be atleast 8 charcters'
         } else {
-            passwordFeedback.innerText = 'Must have atleast One Uppercase Letter, One Lowercase Letter and One Digit'
+            passwordFeedback.innerText = 'Must have atleast One Digit and One Character'
         }
     }
     if (!confPassword.checkValidity() && confPassword.value) {
