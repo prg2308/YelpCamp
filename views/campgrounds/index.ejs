@@ -83,18 +83,20 @@
                                     </div>
                                     <div class="row camp-rating-row">
                                         <div class="col-12 camp-rating text-secondary">
-                                            <span class="rating-span">
-                                                <% for(let star=0;star
-                                                    <campground.avgRating
-                                                    ;star++){ %>
-                                                    &#9733;
-                                                    <% } %>
-                                                        <%for(let
-                                                            star=campground.avgRating
-                                                            ;star<5;star++){ %>
-                                                            &#9734;
-                                                            <% } %>
-                                            </span>
+                                            <% if(campground.reviews.length){ %>
+                                                <span class="rating-span">
+                                                    <% for(let star=0;star
+                                                        <campground.avgRating
+                                                        ;star++){ %>
+                                                        &#9733;
+                                                        <% } %>
+                                                            <%for(let
+                                                                star=campground.avgRating
+                                                                ;star<5;star++){ %>
+                                                                &#9734;
+                                                                <% } %>
+                                                </span>
+                                            <% } %>
                                                 <% if(campground.reviews.length && campground.reviews.length===1){ %>
                                                     <span>1 review</span>
                                                 <% }else if(campground.reviews.length && campground.reviews.length>1){ %>
