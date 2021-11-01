@@ -25,6 +25,7 @@ module.exports.register = async (req, res) => {
             req.flash('error', 'Invalid Password')
             return res.redirect('/register')
         }
+        //
         if (password !== confPassword) {
             req.flash('error', 'Passwords Dont Match!')
             return res.redirect('/register')
