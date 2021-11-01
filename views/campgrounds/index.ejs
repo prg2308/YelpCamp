@@ -65,7 +65,11 @@
                                         <div class="col-9">
                                             <a href="/campgrounds/<%= campground._id %>" class="camp-title-anchor">
                                                 <h5 class="card-title camp-card-title">
-                                                    <%= campground.title%>
+                                                    <% if(campground.title.length>19){ %>
+                                                        <%= campground.title.slice(0,19) + '...' %>
+                                                            <% }else{ %>
+                                                                <%= campground.title %>
+                                                                            <% } %>
                                                 </h5>
                                             </a>
                                         </div>

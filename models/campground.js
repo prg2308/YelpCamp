@@ -34,7 +34,8 @@ const campgroundSchema = new Schema({
     },
     location: {
         type: String,
-        required: true
+        required: true,
+        lowercase: true
     },
     price: {
         type: Number,

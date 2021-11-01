@@ -7,10 +7,10 @@ Add github icon to home page button
 change body background color on other routes
 Add active class to nav links
 paginate reviews
+Add tooltip to register to deny password reset
 
 cross site scripting 
 color scheme
-forgot password
 re-seed Database with realistic data
 manually add reviews and data
 deploying
