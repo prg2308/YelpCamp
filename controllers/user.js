@@ -39,6 +39,17 @@ module.exports.register = async (req, res) => {
     }
 }
 
+module.exports.showUser = async (req, res) => {
+    const { username } = req.params;
+    const user = await User.find({ username })
+    if (!user.length) {
+        req.flash('error', 'No such user!')
+        return res.redirect('/campgrounds')
+    }
+
+    res.render('users/show.ejs', { user: user[0] })
+}
+
 module.exports.logout = (req, res) => {
     req.logout();
     req.flash('warning', 'Logged out')

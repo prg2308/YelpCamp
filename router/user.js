@@ -20,6 +20,8 @@ router.route('/login')
         catchAsync(users.login)
     )
 
+router.get('/users/:username', users.showUser)
+
 router.get('/logout', users.logout)
 
 module.exports = router

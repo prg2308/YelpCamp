@@ -7,6 +7,7 @@ Add github icon to home page button
 change body background color on other routes
 Add active class to nav links
 paginate reviews
+remove mobile number
 Add tooltip to register to deny password reset
 
 cross site scripting 
