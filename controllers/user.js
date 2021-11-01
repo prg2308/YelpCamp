@@ -39,15 +39,6 @@ module.exports.register = async (req, res) => {
     }
 }
 
-module.exports.reset = (req, res) => {
-    const { passport } = req.session
-    if (passport) {
-        return res.redirect('/campgrounds')
-    }
-
-    res.send('Success!!')
-}
-
 module.exports.logout = (req, res) => {
     req.logout();
     req.flash('warning', 'Logged out')

@@ -22,6 +22,4 @@ router.route('/login')
 
 router.get('/logout', users.logout)
 
-router.get('/reset', users.reset)
-
 module.exports = router
