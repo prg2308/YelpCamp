@@ -8,6 +8,8 @@ const passwordFeedback = document.querySelector('.password-feedback')
 const showPassword = document.querySelector("#showPassword")
 const username = document.querySelector('#username')
 const usernameFeedback = document.querySelector('.username-feedback')
+const mobile = document.querySelector('#mobile')
+const mobileFeedback = document.querySelector('.mobile-feedback')
 
 button.addEventListener('click', function () {
 
@@ -15,11 +17,15 @@ button.addEventListener('click', function () {
         emailFeedback.innerText = 'Invalid Email'
     }
 
+    if (!mobile.checkValidity() && mobile.value) {
+        mobileFeedback.innerText = 'Must be 10 digits'
+    }
+
     if (!password.checkValidity() && password.value) {
         if (password.value.length < 8) {
             passwordFeedback.innerText = 'Must be atleast 8 charcters'
         } else {
-            passwordFeedback.innerText = 'Must have atleast One Digit and One Character'
+            passwordFeedback.innerText = 'Must have atleast One digit and One character'
         }
     }
     if (!confPassword.checkValidity() && confPassword.value) {

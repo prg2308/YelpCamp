@@ -21,6 +21,7 @@
     "joi": "^17.4.2",
     "method-override": "^3.0.0",
     "mongoose": "^6.0.5",
+    "mongoose-validator": "^2.1.0",
     "multer": "^1.4.3",
     "multer-storage-cloudinary": "^4.0.0",
     "npm": "^7.24.0",

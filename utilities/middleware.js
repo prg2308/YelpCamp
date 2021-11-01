@@ -1,7 +1,9 @@
-const { campgroundSchema, reviewSchema } = require('./schemas')
+const { campgroundSchema, reviewSchema, userSchema } = require('./schemas')
 const ExpressError = require('./ExpressError')
 const Campground = require('../models/campground')
 const Review = require('../models/review')
+const User = require('../models/user')
+const { passwordSchema } = require('./schemas')
 
 module.exports.isLoggedIn = function (req, res, next) {
     if (!req.isAuthenticated()) {
@@ -23,6 +25,25 @@ module.exports.validateCampground = function (req, res, next) {
 
 module.exports.validateReview = function (req, res, next) {
     const { error } = reviewSchema.validate(req.body)
+    if (error) {
+        throw new ExpressError(error.details[0].message, 400)
+    } else {
+        next()
+    }
+}
+
+module.exports.validateUser = function (req, res, next) {
+    const { username, email, mobile, password, confPassword } = req.body;
+    if (!passwordSchema.validate(password)) {
+        req.flash('error', 'Invalid Password')
+        return res.redirect('/register')
+    }
+    if (password !== confPassword) {
+        req.flash('error', 'Passwords Dont Match!')
+        return res.redirect('/register')
+    }
+    const validUser = { username, email, mobile }
+    const { error } = userSchema.validate(validUser)
     if (error) {
         throw new ExpressError(error.details[0].message, 400)
     } else {

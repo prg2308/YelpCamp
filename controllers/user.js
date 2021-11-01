@@ -1,6 +1,4 @@
-const { equal } = require('joi');
 const User = require('../models/user');
-const { passwordSchema } = require('../utilities/schemas')
 
 module.exports.renderRegister = (req, res) => {
     res.render('users/register.ejs')
@@ -20,22 +18,13 @@ module.exports.login = async (req, res) => {
 
 module.exports.register = async (req, res) => {
     try {
-        const { email, username, password, confPassword } = req.body;
-        if (!passwordSchema.validate(password)) {
-            req.flash('error', 'Invalid Password')
-            return res.redirect('/register')
-        }
-        //
-        if (password !== confPassword) {
-            req.flash('error', 'Passwords Dont Match!')
-            return res.redirect('/register')
-        }
+        const { email, username, password, mobile } = req.body;
         const foundUser = await User.find({ email });
         if (foundUser.length) {
             req.flash('error', 'Email Already Exists!')
             return res.redirect('/register')
         }
-        const user = new User({ email, username })
+        const user = new User({ email, username, mobile })
         const regUser = await User.register(user, password)
         req.login(regUser, function (err) {
             if (err) {
@@ -45,7 +34,7 @@ module.exports.register = async (req, res) => {
             res.redirect('/campgrounds')
         })
     } catch (e) {
-        req.flash('error', 'Username Taken!')
+        req.flash('error', 'Username taken!')
         res.redirect('/register')
     }
 }

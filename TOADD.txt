@@ -5,6 +5,7 @@ make about page
 add logo
 Add github icon to home page button
 change body background color on other routes
+Add active class to nav links
 paginate reviews
 
 cross site scripting 
