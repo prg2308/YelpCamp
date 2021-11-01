@@ -6,6 +6,8 @@ const emailFeedback = document.querySelector('.email-feedback')
 const confFeedback = document.querySelector('.conf-feedback')
 const passwordFeedback = document.querySelector('.password-feedback')
 const showPassword = document.querySelector("#showPassword")
+const username = document.querySelector('#username')
+const usernameFeedback = document.querySelector('.username-feedback')
 
 button.addEventListener('click', function () {
 

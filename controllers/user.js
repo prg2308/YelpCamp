@@ -1,3 +1,4 @@
+const { equal } = require('joi');
 const User = require('../models/user');
 const { passwordSchema } = require('../utilities/schemas')
 
@@ -46,6 +47,15 @@ module.exports.register = async (req, res) => {
         req.flash('error', 'Username Taken!')
         res.redirect('/register')
     }
+}
+
+module.exports.reset = (req, res) => {
+    const { passport } = req.session
+    if (passport) {
+        return res.redirect('/campgrounds')
+    }
+
+    res.send('Success!!')
 }
 
 module.exports.logout = (req, res) => {

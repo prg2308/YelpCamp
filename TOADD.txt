@@ -1,4 +1,3 @@
-forgot password
 user profile page
 Handle delete user by [deleted]
 add icons to footer 
@@ -10,6 +9,7 @@ paginate reviews
 
 cross site scripting 
 color scheme
+forgot password
 re-seed Database with realistic data
 manually add reviews and data
 deploying

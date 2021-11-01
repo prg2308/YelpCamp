@@ -18,9 +18,19 @@ module.exports.create = async (req, res) => {
 }
 
 module.exports.delete = async (req, res) => {
+    let total = 0;
     const { id, reviewId } = req.params
-    await Campground.findByIdAndUpdate(id, { $pull: { reviews: reviewId } })
+    const campground = await Campground.findByIdAndUpdate(id, { $pull: { reviews: reviewId } }, { new: true }).populate('reviews')
     await Review.findByIdAndDelete(reviewId)
+    if (campground.reviews.length) {
+        for (rev of campground.reviews) {
+            total += parseInt(rev.rating)
+        }
+        campground.avgRating = Math.floor(total / (campground.reviews.length))
+    } else {
+        campground.avgRating = 0;
+    }
+    await campground.save();
     req.flash('warning', 'Deleted Review')
     res.redirect(`/campgrounds/${id}`)
 }
