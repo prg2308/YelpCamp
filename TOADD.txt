@@ -1,7 +1,5 @@
-Add github icon to home page button
 Add tooltip to register to deny password reset
-
 cross site scripting 
-re-seed Database with realistic data
-manually add reviews and data
-deploying
+final check
+re-seed database
+deploy
