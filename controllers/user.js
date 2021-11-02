@@ -77,7 +77,8 @@ module.exports.edit = async (req, res) => {
     const user = passport.user
     const currentUser = await User.findOne({ username: user })
     const { email, username } = req.body;
-    const foundUsers = await User.find({ $or: [{ username }, { email }] });
+    const foundUsers = await User.find({ $or: [{ username }, { email }] })
+    console.log(foundUsers)
     let domain
 
     if (username === currentUser.username && email === currentUser.email) {
@@ -86,15 +87,22 @@ module.exports.edit = async (req, res) => {
     }
     if (foundUsers.length) {
         for (const existingUser of foundUsers) {
-            existingUser.username === username ? (domain = 'Username') : (domain = 'Email');
-            req.flash('error', `${domain} already taken!`);
-            return res.redirect(`/users/${user}/edit`)
+            if (existingUser.username !== currentUser.username && existingUser.email !== currentUser.email) {
+                existingUser.username === username ? (domain = 'Username') : (domain = 'Email');
+                req.flash('error', `${domain} already taken!`);
+                return res.redirect(`/users/${user}/edit`)
+            }
         }
     }
 
-    // currentUser.username = username;
-    // currentUser.email = email;
-    // currentUser.save();
+    // const filter = { username: user }
+    // const update = { username, email }
+
+    // const updated = await User.findOneAndUpdate(filter, update, {
+    //     new: true
+    // });
+
+    // console.log(updated)
     req.flash('success', 'ok2');
     return res.redirect(`/users/${user}`)
 }
