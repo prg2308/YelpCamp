@@ -110,6 +110,10 @@ module.exports.edit = async (req, res) => {
 
 }
 
+module.exports.delete = (req, res) => {
+    res.send('deleteLOLOLOLL')
+}
+
 module.exports.logout = (req, res) => {
     req.logout();
     req.flash('warning', 'Logged out')
