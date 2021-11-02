@@ -143,6 +143,10 @@ module.exports.renderEdit = async (req, res) => {
         throw new ExpressError('Page not found', 404)
     }
     const campground = await Campground.findById(req.params.id)
+    if (!campground) {
+        req.flash('error', 'Cannot find Campground!')
+        return res.redirect('/campgrounds')
+    }
     res.render('campgrounds/edit.ejs', { campground })
 }
 

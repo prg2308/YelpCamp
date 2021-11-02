@@ -1,4 +1,5 @@
 const { campgroundSchema, reviewSchema, userSchema } = require('./schemas')
+const mongoose = require('mongoose')
 const ExpressError = require('./ExpressError')
 const Campground = require('../models/campground')
 const Review = require('../models/review')
@@ -62,6 +63,10 @@ module.exports.validateUpdate = function (req, res, next) {
 
 module.exports.isAuth = async function (req, res, next) {
     const { id } = req.params
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        req.flash('error', 'Cannot find Campground')
+        return res.redirect('/campgrounds')
+    }
     const campground = await Campground.findById(id)
     if (!campground) {
         req.flash('error', 'Cannot find Campground!')
@@ -76,6 +81,10 @@ module.exports.isAuth = async function (req, res, next) {
 
 module.exports.isReviewAuth = async function (req, res, next) {
     const { id, reviewId } = req.params
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        req.flash('error', 'You dont have permission to do that')
+        return res.redirect('/campgrounds')
+    }
     const review = await Review.findById(reviewId)
     if (!review.author.equals(req.user._id)) {
         return res.redirect(`/campgrounds/${id}`)

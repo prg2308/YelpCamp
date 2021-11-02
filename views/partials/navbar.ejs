@@ -8,7 +8,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-link active" href="/campgrounds">Campgrounds</a>
-                <a class="nav-link" href="/campgrounds">About</a>
+                <a class="nav-link" href="/">Home</a>
                 <a class="nav-link" href="/campgrounds/new">New</a>
             </div>
             <div class="navbar-nav ms-auto">
@@ -16,7 +16,8 @@
                     <a href="/login" class="nav-link">Login</a>
                     <a href="/register" class="nav-link">Register</a>
                     <% }else{ %>
-                        <a href="/users/<%=currentUser.username%>" class="nav-link"><i class="fas fa-user-circle"></i>&nbsp;<%= currentUser.username %></a>
+                        <a href="/users/<%=currentUser.username%>" class="nav-link"><i
+                                class="fas fa-user-circle"></i>&nbsp;<%= currentUser.username %></a>
                         <a href="/logout" class="nav-link logout">Logout</a>
                         <% } %>
             </div>

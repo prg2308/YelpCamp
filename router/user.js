@@ -26,7 +26,7 @@ router.route('/users/:username')
         validateUpdate,
         catchAsync(users.edit)
     )
-    .delete(users.delete)   //ADD CATCH ASYNC
+    .delete(catchAsync(users.delete))
 
 router.get('/users/:username/edit', users.renderEdit)
 

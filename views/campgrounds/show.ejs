@@ -38,18 +38,24 @@
                         <%= campground.location %>
                     </li>
                     <li class="list-group-item">
-                        Submitted by <a href="/users/<%= campground.author.username %>" style="text-decoration: none;"><%= campground.author.username %></a>
+                        <% if(campground.author){ %>
+                            Submitted by <a href="/users/<%= campground.author.username %>" style="text-decoration: none;"><%= campground.author.username %></a>
+                        <% }else{ %>
+                            Submitted by <span class="text-muted text-lowercase">[deleted]</span>
+                        <% } %>
                     </li>
                     <li class="list-group-item">₹<%= campground.price%>/night</li>
                 </ul>
-                <% if(currentUser && campground.author._id.equals(currentUser._id)){ %>
-                    <div class="card-body">
-                        <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-info my-1 ms-1">Edit</a>
-                        <form class="d-inline" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
-                            <button class="btn btn-danger my-1 ms-1">Delete</button>
-                        </form>
-                    </div>
-                    <% } %>
+                <% if(campground.author){ %>
+                    <% if(currentUser && campground.author._id.equals(currentUser._id)){ %>
+                        <div class="card-body">
+                            <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-info my-1 ms-1">Edit</a>
+                            <form class="d-inline" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+                                <button class="btn btn-danger my-1 ms-1">Delete</button>
+                            </form>
+                        </div>
+                        <% } %>
+                <% } %>
                         <div class="card-footer text-muted">
                            <%= campground.createDate %>
                         </div>
@@ -91,7 +97,11 @@
                         <div class="card mb-3">
                             <div class="card-body">
                                 <h5 class="card-title">
-                                    <a href="/users/<%= review.author.username %>" class="review-title"><%= review.author.username %></a>
+                                    <% if(review.author){ %>
+                                        <a href="/users/<%= review.author.username %>" class="review-title"><%= review.author.username %></a>
+                                    <% }else{ %>
+                                        <span class="text-muted text-lowercase">[deleted]</span>
+                                    <% } %>
                                 </h5>
                                 <h5 class="card-title">
                                     <div class='text-secondary'>
@@ -106,13 +116,15 @@
                                 <p class="card-text">
                                     <%= review.body %>
                                 </p>
-                                <% if(currentUser && review.author._id.equals(currentUser._id)){ %>
-                                    <form
-                                        action="/campgrounds/<%= campground._id%>/reviews/<%=review._id %>?_method=DELETE"
-                                        method="POST">
-                                        <button class="btn btn-sm btn-danger">Delete</button>
-                                    </form>
-                                    <% } %>
+                                <% if(review.author){ %>
+                                    <% if(currentUser && review.author._id.equals(currentUser._id)){ %>
+                                        <form
+                                            action="/campgrounds/<%= campground._id%>/reviews/<%=review._id %>?_method=DELETE"
+                                            method="POST">
+                                            <button class="btn btn-sm btn-danger">Delete</button>
+                                        </form>
+                                        <% } %>
+                                <% } %>
                             </div>
                         </div>
                         <% } %>
@@ -127,7 +139,11 @@
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <h5 class="card-title">
-                                        <%= review.author.username%>
+                                        <% if(review.author){ %>
+                                            <a href="/users/<%= review.author.username %>" class="review-title"><%= review.author.username %></a>
+                                        <% }else{ %>
+                                            <span class="text-muted text-lowercase">[deleted]</span>
+                                        <% } %>
                                     </h5>
                                     <h5 class="card-title">
                                         <div class='text-secondary'>

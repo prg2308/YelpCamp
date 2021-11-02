@@ -87,7 +87,7 @@ module.exports.edit = async (req, res) => {
         for (const existingUser of foundUsers) {
             if (existingUser.username !== currentUser.username && existingUser.email !== currentUser.email) {
                 existingUser.username === username ? (domain = 'Username') : (domain = 'Email');
-                req.flash('error', `${domain} already taken!`);
+                req.flash('error', `${domain} Already Exists!`);
                 return res.redirect(`/users/${user}/edit`)
             }
         }
@@ -110,8 +110,14 @@ module.exports.edit = async (req, res) => {
 
 }
 
-module.exports.delete = (req, res) => {
-    res.send('deleteLOLOLOLL')
+module.exports.delete = async (req, res) => {
+    const { username } = req.params
+    if (username !== req.session.passport.user) {
+        res.redirect('/campgrounds')
+    }
+    const deleted = await User.deleteOne({ username })
+    req.flash('warning', `Deleted user '${username}'`)
+    res.redirect('/campgrounds')
 }
 
 module.exports.logout = (req, res) => {

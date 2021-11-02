@@ -6,7 +6,7 @@
                 enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
-                    <input type="text" name="title" id="title" class="form-control" value="<%= campground.title%>"
+                    <input type="text" name="title" id="title" class="form-control text-capitalize" value="<%= campground.title%>"
                         required>
                     <div class="invalid-feedback">
                         Required
@@ -14,7 +14,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="location" class="form-label">Location</label>
-                    <input type="text" id="location" name="location" class="form-control"
+                    <input type="text" id="location" name="location" class="form-control text-capitalize"
                         value="<%= campground.location%>" required>
                     <div class="invalid-feedback">
                         Required

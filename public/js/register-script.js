@@ -17,10 +17,6 @@ button.addEventListener('click', function () {
         emailFeedback.innerText = 'Invalid Email'
     }
 
-    if (!mobile.checkValidity() && mobile.value) {
-        mobileFeedback.innerText = 'Must be 10 digits'
-    }
-
     if (!password.checkValidity() && password.value) {
         if (password.value.length < 8) {
             passwordFeedback.innerText = 'Must be atleast 8 charcters'
