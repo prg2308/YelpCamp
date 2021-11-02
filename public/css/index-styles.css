@@ -72,6 +72,19 @@ body {
     padding: 0;
 }
 
+.btn-search:focus{
+    box-shadow: none
+}
+
+.search-span{
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.search-span:hover{
+    background-color: #d0d0d0;
+    cursor: pointer;
+}
+
 .camp-card {
     margin: 1rem;
     border: none;

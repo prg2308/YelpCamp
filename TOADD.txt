@@ -1,5 +1,3 @@
-change button colors
-change cluster map to fit logo colors
 Add github icon to home page button
 Add tooltip to register to deny password reset
 
