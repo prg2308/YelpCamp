@@ -1,10 +1,9 @@
-add logo
+change button colors
+change cluster map to fit logo colors
 Add github icon to home page button
-change body background color on other routes
 Add tooltip to register to deny password reset
 
 cross site scripting 
-color scheme
 re-seed Database with realistic data
 manually add reviews and data
 deploying

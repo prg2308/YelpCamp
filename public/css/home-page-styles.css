@@ -49,10 +49,6 @@ body{
     text-align: center;
 }
 
-.lead-title{
-    margin-bottom: 1rem;
-}
-
 .btn-custom{
     background-color: white;
     background-color: rgb(251,238,193);
@@ -71,6 +67,12 @@ body{
     background-color: rgba(251,238,193,0.8);
 }
 
+/* #home-logo{
+    height: 3rem; 
+    width: 3rem; 
+    margin-bottom: 1rem;
+} */
+
   
 @media (min-width:992px){
     .navbar-home{
@@ -83,8 +85,12 @@ body{
         margin-left: 1rem;
         transition: all 0.25s;
     }
-    
 
+    #home-logo{
+        height: 3rem; 
+        width: 3rem; 
+        margin-bottom: 1rem;
+    }
 }
 
 @media (max-width:992px){
@@ -110,6 +116,12 @@ body{
 
     .btn-custom{
         font-size: 1rem;
+    }
+
+    #home-logo{
+        height: 2.75rem; 
+        width: 2.75rem; 
+        margin-bottom: 1rem;
     }
 
 }
