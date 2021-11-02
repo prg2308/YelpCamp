@@ -7,14 +7,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link active" href="/campgrounds">Campgrounds</a>
-                <a class="nav-link" href="/">Home</a>
-                <a class="nav-link" href="/campgrounds/new">New</a>
+                <a class="nav-link active" href="/campgrounds" id="camp-link">Campgrounds</a>
+                <a class="nav-link" href="/" id="home-link">Home</a>
+                <a class="nav-link" href="/campgrounds/new" id="new-link">New</a>
             </div>
             <div class="navbar-nav ms-auto">
                 <% if(!currentUser){ %>
-                    <a href="/login" class="nav-link">Login</a>
-                    <a href="/register" class="nav-link">Register</a>
+                    <a href="/login" class="nav-link" id="login-link">Login</a>
+                    <a href="/register" class="nav-link" id="reg-link">Register</a>
                     <% }else{ %>
                         <a href="/users/<%=currentUser.username%>" class="nav-link"><i
                                 class="fas fa-user-circle"></i>&nbsp;<%= currentUser.username %></a>

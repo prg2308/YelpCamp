@@ -3,6 +3,10 @@
     background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
 }
 
+.card{
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 10%), 0 6px 20px 0 rgb(0 0 0 / 9%);
+}
+
 .card-title{
     text-transform: capitalize;
 }
