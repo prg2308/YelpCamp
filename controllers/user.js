@@ -75,12 +75,12 @@ module.exports.renderEdit = async (req, res) => {
 module.exports.edit = async (req, res) => {
     const { passport, returnTo } = req.session
     const user = passport.user
-    const currentUser = await User.find({ username: user })
+    const currentUser = await User.findOne({ username: user })
     const { email, username } = req.body;
     const foundUsers = await User.find({ $or: [{ username }, { email }] });
     let domain
 
-    if (username === currentUser[0].username && email === currentUser[0].email) {
+    if (username === currentUser.username && email === currentUser.email) {
         req.flash('success', 'ok1');
         return res.redirect(`/users/${user}`)
     }
@@ -92,6 +92,9 @@ module.exports.edit = async (req, res) => {
         }
     }
 
+    // currentUser.username = username;
+    // currentUser.email = email;
+    // currentUser.save();
     req.flash('success', 'ok2');
     return res.redirect(`/users/${user}`)
 }
