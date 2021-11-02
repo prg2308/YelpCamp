@@ -9,11 +9,6 @@ const userSchema = new Schema({
         unique: true
     },
 
-    mobile: {
-        type: String,
-        required: true,
-    },
-
     joinDate: {
         type: String,
         required: true

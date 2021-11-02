@@ -20,14 +20,14 @@ module.exports.login = async (req, res) => {
 
 module.exports.register = async (req, res) => {
     try {
-        const { email, username, password, mobile } = req.body;
+        const { email, username, password } = req.body;
         const joinDate = getDate()
         const foundUser = await User.find({ email });
         if (foundUser.length) {
             req.flash('error', 'Email Already Exists!')
             return res.redirect('/register')
         }
-        const user = new User({ email, username, mobile, joinDate })
+        const user = new User({ email, username, joinDate })
         const regUser = await User.register(user, password)
         req.login(regUser, function (err) {
             if (err) {
@@ -75,7 +75,7 @@ module.exports.edit = async (req, res) => {
     const { passport } = req.session
     const user = passport.user
     const currentUser = await User.findOne({ username: user })
-    const { email, username, password } = req.body;
+    const { email, username } = req.body;
     const foundUsers = await User.find({ $or: [{ username }, { email }] })
     let domain
 
