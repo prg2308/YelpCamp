@@ -141,7 +141,7 @@
                                                 </li>
                                                 <% if(parseInt(page)!==3){ %>
                                                     <li class="page-item disabled">
-                                                        <span class="page-link">...</span>
+                                                        <span class="page-link filler">...</span>
                                                     </li>
                                                     <% } %>
                                                         <% } %>
@@ -152,7 +152,7 @@
                                                                     </a>
                                                                 </li>
                                                                 <% } %>
-                                                                    <li class="page-item active"><a class="page-link"
+                                                                    <li class="page-item"><a class="page-link page-link-active"
                                                                             href="/campgrounds?page=<%= page %>&search=<%= search %>&sort=<%= sort %>">
                                                                             <%= page %>
                                                                         </a>
@@ -177,7 +177,7 @@
                                                                                         ){ %>
                                                                                         <li class="page-item disabled">
                                                                                             <span
-                                                                                                class="page-link">...</span>
+                                                                                                class="page-link filler">...</span>
                                                                                         </li>
                                                                                         <% } %>
                                                                                             <li class="page-item last">

@@ -39,7 +39,7 @@
                     </li>
                     <li class="list-group-item">
                         <% if(campground.author){ %>
-                            Submitted by <a href="/users/<%= campground.author.username %>" style="text-decoration: none;"><%= campground.author.username %></a>
+                            Submitted by <a href="/users/<%= campground.author.username %>" class="user-anchor"><%= campground.author.username %></a>
                         <% }else{ %>
                             Submitted by <span class="text-muted text-lowercase">[deleted]</span>
                         <% } %>

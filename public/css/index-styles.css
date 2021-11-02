@@ -96,7 +96,13 @@ body {
 }
 
 .camp-title-anchor {
+    color: #0a58ca;
     text-decoration: none;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.camp-title-anchor:hover{
+    color: #83dbfb;
 }
 
 .no-rating {
@@ -135,6 +141,40 @@ body {
 .border-right{
     border-top-right-radius: 12px !important;
     border-bottom-right-radius: 12px !important; 
+}
+
+.page-link{
+    color:#344c5c;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.page-link-active{
+    background-color: #fd8469;
+    border-color: #fd8469;
+    color: white;
+}
+
+.page-link:hover {
+    z-index: 2;
+    color: #f5f5f5;
+    background-color: #fda590;
+    border-color: #fda590;
+}
+
+.page-link:focus {
+    z-index: 3;
+    color: #f5f5f5;
+    background-color: #fda590;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(131 219 251/ 25%);
+}
+
+.page-item.disabled .page-link {
+    background-color: #e9ecef
+}
+
+.filler{
+    background-color: white !important;
 }
 
 @media (min-width:992px) {

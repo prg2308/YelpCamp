@@ -21,6 +21,16 @@
     transition: color 0.2s;
 }
 
+.user-anchor {
+    color: #0a58ca;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.user-anchor:hover{
+    color: #83dbfb;
+}
+
 @media (min-width:992px) {
     .carousel-img{
         height: 360px;
