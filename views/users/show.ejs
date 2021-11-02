@@ -16,8 +16,8 @@
                             Joined YelpCamp on <br>
                             <%= user.joinDate %>
                         </span>
-                        <% if(currentUser.username === user.username){ %>
-                            <a href="/campgrounds" class="btn btn-info btn-large mt-2">Edit</a>
+                        <% if(currentUser && currentUser.username === user.username){ %>
+                            <a href="/users/<%= user.username %>/edit" class="btn btn-info btn-large mt-2">Edit</a>
                         <% } %>
                     </div>
                 </div>

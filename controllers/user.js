@@ -53,6 +53,16 @@ module.exports.showUser = async (req, res) => {
     res.render('users/show.ejs', { user: user[0], campgrounds })
 }
 
+module.exports.renderEdit = async (req, res) => {
+    const { username } = req.params;
+    const { passport } = req.session;
+    if (passport && passport.user === username) {
+        return res.send('OK to edit')
+    }
+
+    res.send('Invalid access')
+}
+
 module.exports.logout = (req, res) => {
     req.logout();
     req.flash('warning', 'Logged out')

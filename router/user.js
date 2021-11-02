@@ -22,6 +22,8 @@ router.route('/login')
 
 router.get('/users/:username', users.showUser)
 
+router.get('/users/:username/edit', users.renderEdit)
+
 router.get('/logout', users.logout)
 
 module.exports = router
