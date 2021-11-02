@@ -12,7 +12,12 @@ const userSchema = new Schema({
     mobile: {
         type: String,
         required: true,
-    }
+    },
+
+    joinDate: {
+        type: String,
+        required: true
+    },
 })
 
 userSchema.plugin(passportLocalMongoose)

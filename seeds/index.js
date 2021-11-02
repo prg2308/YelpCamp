@@ -55,7 +55,7 @@ async function seedDB() {
             randImg[i] = Math.floor(Math.random() * 6)
         }
         const camp = new Campground({
-            author: '617ff3b79aae8692d17b6a0a',
+            author: '61803a50d6f70deb45690446',
             title: `${randArray(descriptors)} ${randArray(places)}`,
             geometry: {
                 type: 'Point',

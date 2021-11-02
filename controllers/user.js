@@ -1,4 +1,6 @@
 const User = require('../models/user');
+const Campground = require('../models/campground')
+const getDate = require('../utilities/date')
 
 module.exports.renderRegister = (req, res) => {
     res.render('users/register.ejs')
@@ -19,12 +21,13 @@ module.exports.login = async (req, res) => {
 module.exports.register = async (req, res) => {
     try {
         const { email, username, password, mobile } = req.body;
+        const joinDate = getDate()
         const foundUser = await User.find({ email });
         if (foundUser.length) {
             req.flash('error', 'Email Already Exists!')
             return res.redirect('/register')
         }
-        const user = new User({ email, username, mobile })
+        const user = new User({ email, username, mobile, joinDate })
         const regUser = await User.register(user, password)
         req.login(regUser, function (err) {
             if (err) {
@@ -46,8 +49,8 @@ module.exports.showUser = async (req, res) => {
         req.flash('error', 'No such user!')
         return res.redirect('/campgrounds')
     }
-
-    res.render('users/show.ejs', { user: user[0] })
+    const campgrounds = await Campground.find({ author: user[0]._id })
+    res.render('users/show.ejs', { user: user[0], campgrounds })
 }
 
 module.exports.logout = (req, res) => {

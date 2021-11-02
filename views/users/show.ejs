@@ -1,53 +1,73 @@
 <% layout('/layouts/boilerplate') %>
     <div class="container rounded bg-white mt-5 mb-5">
-        <div class="row">
-            <div class="col-md-3 border-right">
-                <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
-                        width="150px"
-                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
-                        class="font-weight-bold">
-                        <%= user.username %>
-                    </span><span class="text-black-50">
-                        <%= user.email %>
-                    </span><span> </span></div>
+        <div class="row outer-row">
+
+            <div class="row row-wrap">
+                <div class="col-lg-12 border-right">
+                    <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                        <i class="fas fa-user-circle" style="width: 150px; height: 150px;"></i>
+                        <span class="font-weight-bold mt-2 user-info">
+                            <%= user.username %>
+                        </span>
+                        <span class="text-black-50 mt-2 user-info">
+                            <%= user.email %>
+                        </span>
+                        <span class="text-black-50 mt-2 user-info">
+                            Joined YelpCamp on <br>
+                            <%= user.joinDate %>
+                        </span>
+                        <% if(currentUser.username === user.username){ %>
+                            <a href="/campgrounds" class="btn btn-info btn-large mt-2">Edit</a>
+                        <% } %>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-9 border-right">
-                <div class="p-3 py-5">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="text-right">Profile Settings</h4>
+
+            <div class="row row-wrap">
+                <div class="col-lg-12">
+                    <div class="container container-divider">
+                        <h2 class="container result-head">
+                            <% if(campgrounds.length){ %>
+                                Campgrounds submitted by <%= user.username %>
+                                    <% }else{ %>
+                                        No campgrounds yet
+                                        <% } %>
+                        </h2>
+                        <div class="row divider-head-row">
+                            <div class="col-5 divider divider-left"></div>
+                            <div class="col-2 div-icon"><i class="far fa-circle"></i></div>
+                            <div class="col-5 divider divider-right"></div>
+                        </div>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control"
-                                placeholder="first name" value=""></div>
-                        <div class="col-md-6"><label class="labels">Surname</label><input type="text"
-                                class="form-control" value="" placeholder="surname"></div>
+
+                    <div class="row camps-row">
+                        <% for(campground of campgrounds){ %>
+                            <div class="col-lg-4 camp-col">
+                                <div class="card camp-card">
+                                    <img src="<%= campground.images[0].url %>" class="card-img-top camp-img"
+                                        alt="<%= campground.title %>">
+                                    <div class="card-body camp-card-body">
+                                        <div class="row camp-info">
+                                            <div class="col-12">
+                                                <a href="/campgrounds/<%= campground._id %>" class="camp-title-anchor">
+                                                    <h5 class="card-title camp-card-title text-center text-capitalize">
+                                                        <%= campground.title %>
+                                                    </h5>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="row camp-info">
+                                            <div class="col-12">
+                                                <h6 class="text-secondary text-center text-capitalize">
+                                                    <%= campground.location %>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
                     </div>
-                    <div class="row mt-3">
-                        <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text"
-                                class="form-control" placeholder="enter phone number" value=""></div>
-                        <div class="col-md-12"><label class="labels">Address Line 1</label><input type="text"
-                                class="form-control" placeholder="enter address line 1" value=""></div>
-                        <div class="col-md-12"><label class="labels">Address Line 2</label><input type="text"
-                                class="form-control" placeholder="enter address line 2" value=""></div>
-                        <div class="col-md-12"><label class="labels">Postcode</label><input type="text"
-                                class="form-control" placeholder="enter address line 2" value=""></div>
-                        <div class="col-md-12"><label class="labels">State</label><input type="text"
-                                class="form-control" placeholder="enter address line 2" value=""></div>
-                        <div class="col-md-12"><label class="labels">Area</label><input type="text" class="form-control"
-                                placeholder="enter address line 2" value=""></div>
-                        <div class="col-md-12"><label class="labels">Email ID</label><input type="text"
-                                class="form-control" placeholder="enter email id" value=""></div>
-                        <div class="col-md-12"><label class="labels">Education</label><input type="text"
-                                class="form-control" placeholder="education" value=""></div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-6"><label class="labels">Country</label><input type="text"
-                                class="form-control" placeholder="country" value=""></div>
-                        <div class="col-md-6"><label class="labels">State/Region</label><input type="text"
-                                class="form-control" value="" placeholder="state"></div>
-                    </div>
-                    <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save
-                            Profile</button></div>
                 </div>
             </div>
         </div>
@@ -55,36 +75,5 @@
     </div>
     </div>
 
-    <style>
-        body {
-            background: #f5f5f5
-        }
-
-        .rounded {
-            border-radius: 0.25rem;
-            box-shadow: 0 4px 8px 0 rgb(0 0 0 / 10%), 0 6px 20px 0 rgb(0 0 0 / 9%);
-        }
-
-        .profile-button {
-            background: rgb(99, 39, 120);
-            box-shadow: none;
-            border: none
-        }
-
-        .back:hover {
-            color: #682773;
-            cursor: pointer
-        }
-
-        .add-experience:hover {
-            background: #BA68C8;
-            color: #fff;
-            cursor: pointer;
-            border: solid 1px #BA68C8
-        }
-
-        .bg-trans {
-            --bs-bg-opacity: 1;
-            background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/index-styles.css">
+    <link rel="stylesheet" href="/css/user-styles.css">

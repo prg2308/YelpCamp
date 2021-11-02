@@ -11,6 +11,12 @@
     text-transform: capitalize;
 }
 
+.review-title{
+    color:#212529;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
 @media (min-width:992px) {
     .carousel-img{
         height: 360px;

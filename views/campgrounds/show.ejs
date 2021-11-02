@@ -38,7 +38,7 @@
                         <%= campground.location %>
                     </li>
                     <li class="list-group-item">
-                        Submitted by <%= campground.author.username %>
+                        Submitted by <a href="/users/<%= campground.author.username %>" style="text-decoration: none;"><%= campground.author.username %></a>
                     </li>
                     <li class="list-group-item">₹<%= campground.price%>/night</li>
                 </ul>
@@ -91,7 +91,7 @@
                         <div class="card mb-3">
                             <div class="card-body">
                                 <h5 class="card-title">
-                                    <%= review.author.username%>
+                                    <a href="/users/<%= review.author.username %>" class="review-title"><%= review.author.username %></a>
                                 </h5>
                                 <h5 class="card-title">
                                     <div class='text-secondary'>

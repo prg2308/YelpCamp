@@ -16,7 +16,7 @@
                     <a href="/login" class="nav-link">Login</a>
                     <a href="/register" class="nav-link">Register</a>
                     <% }else{ %>
-                        <a href="/campgrounds" class="nav-link"><i class="fas fa-user-circle"></i>&nbsp;<%= currentUser.username %></a>
+                        <a href="/users/<%=currentUser.username%>" class="nav-link"><i class="fas fa-user-circle"></i>&nbsp;<%= currentUser.username %></a>
                         <a href="/logout" class="nav-link logout">Logout</a>
                         <% } %>
             </div>
