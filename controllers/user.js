@@ -1,7 +1,6 @@
 const User = require('../models/user');
 const Campground = require('../models/campground')
 const getDate = require('../utilities/date');
-const { exist } = require('joi');
 
 module.exports.renderRegister = (req, res) => {
     res.render('users/register.ejs')
@@ -73,16 +72,15 @@ module.exports.renderEdit = async (req, res) => {
 }
 
 module.exports.edit = async (req, res) => {
-    const { passport, returnTo } = req.session
+    const { passport } = req.session
     const user = passport.user
     const currentUser = await User.findOne({ username: user })
-    const { email, username } = req.body;
+    const { email, username, password } = req.body;
     const foundUsers = await User.find({ $or: [{ username }, { email }] })
-    console.log(foundUsers)
     let domain
 
     if (username === currentUser.username && email === currentUser.email) {
-        req.flash('success', 'ok1');
+        req.flash('success', 'Updated Successfully!');
         return res.redirect(`/users/${user}`)
     }
     if (foundUsers.length) {
@@ -95,16 +93,21 @@ module.exports.edit = async (req, res) => {
         }
     }
 
-    // const filter = { username: user }
-    // const update = { username, email }
+    const filter = { username: user }
+    const update = { username, email }
 
-    // const updated = await User.findOneAndUpdate(filter, update, {
-    //     new: true
-    // });
+    const updated = await User.findOneAndUpdate(filter, update, {
+        new: true
+    });
 
-    // console.log(updated)
-    req.flash('success', 'ok2');
-    return res.redirect(`/users/${user}`)
+    req.login(updated, function (err) {
+        if (err) {
+            return next(err)
+        }
+        req.flash('success', 'Updated Successfully!');
+        res.redirect(`/users/${updated.username}`)
+    })
+
 }
 
 module.exports.logout = (req, res) => {

@@ -4,7 +4,7 @@ const passport = require('passport')
 
 const catchAsync = require('../utilities/catchAsync')
 const users = require('../controllers/user');
-const { validateUser } = require('../utilities/middleware')
+const { validateUser, validateUpdate } = require('../utilities/middleware')
 
 router.route('/register')
     .get(users.renderRegister)
@@ -22,7 +22,10 @@ router.route('/login')
 
 router.route('/users/:username')
     .get(users.showUser)
-    .post(users.edit)
+    .post(
+        validateUpdate,
+        catchAsync(users.edit)
+    )
 
 router.get('/users/:username/edit', users.renderEdit)
 

@@ -8,7 +8,7 @@ save.addEventListener('click', function (e) {
     }
 })
 back.addEventListener('click', function (e) {
-    const confExit = confirm('Leave Without Svaing?')
+    const confExit = confirm('Leave Without Saving?')
     if (!confExit) {
         e.preventDefault();
     }
