@@ -17,7 +17,6 @@ module.exports.reviewSchema = Joi.object({
 module.exports.userSchema = Joi.object({
     username: Joi.string().required(),
     email: Joi.string().email().required(),
-    mobile: Joi.string().pattern(new RegExp('^[0-9]{10}$'))
 })
 
 const passwordSchema = new passwordValidator();

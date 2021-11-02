@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const Campground = require('../models/campground')
-const getDate = require('../utilities/date')
+const getDate = require('../utilities/date');
+const { exist } = require('joi');
 
 module.exports.renderRegister = (req, res) => {
     res.render('users/register.ejs')
@@ -56,11 +57,43 @@ module.exports.showUser = async (req, res) => {
 module.exports.renderEdit = async (req, res) => {
     const { username } = req.params;
     const { passport } = req.session;
-    if (passport && passport.user === username) {
-        return res.send('OK to edit')
+
+    const user = await User.find({ username })
+    if (!user.length) {
+        req.flash('error', 'No such user!')
+        return res.redirect('/campgrounds')
     }
 
-    res.send('Invalid access')
+    if (!passport || passport.user !== username) {
+        return res.redirect('/campgrounds')
+    }
+
+    res.render('users/edit.ejs', { user: user[0] })
+
+}
+
+module.exports.edit = async (req, res) => {
+    const { passport, returnTo } = req.session
+    const user = passport.user
+    const currentUser = await User.find({ username: user })
+    const { email, username } = req.body;
+    const foundUsers = await User.find({ $or: [{ username }, { email }] });
+    let domain
+
+    if (username === currentUser[0].username && email === currentUser[0].email) {
+        req.flash('success', 'ok1');
+        return res.redirect(`/users/${user}`)
+    }
+    if (foundUsers.length) {
+        for (const existingUser of foundUsers) {
+            existingUser.username === username ? (domain = 'Username') : (domain = 'Email');
+            req.flash('error', `${domain} already taken!`);
+            return res.redirect(`/users/${user}/edit`)
+        }
+    }
+
+    req.flash('success', 'ok2');
+    return res.redirect(`/users/${user}`)
 }
 
 module.exports.logout = (req, res) => {

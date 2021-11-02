@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <% layout('/layouts/boilerplate') %>
+
+        <div class="row">
+            <div class="col-6 offset-3">
+                <h1>Edit Details</h1>
+                <form action="/users/<%= user.username %>" method="POST" novalidate class="validated-form">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Username</label>
+                        <input type="text" name="username" id="username" class="form-control"
+                            value="<%= user.username %>" required>
+                        <div class="invalid-feedback username-feedback">
+                            Required
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" name="email" id="email" class="form-control"
+                            pattern="^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$" value="<%= user.email %>"
+                            required>
+                        <div class="invalid-feedback email-feedback">
+                            Required
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-info mb-3">Save</button>
+                    <a href="/users/<%= user.username %>" class="btn btn-dark mb-3">Back</a>
+                </form>
+            </div>
+        </div>
+        <style>
+            .bg-trans {
+                --bs-bg-opacity: 1;
+                background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+            }
+        </style>
+</body>
+
+<script src="/js/user-edit-script.js"></script>
+
+</html>

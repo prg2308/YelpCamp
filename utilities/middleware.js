@@ -33,7 +33,7 @@ module.exports.validateReview = function (req, res, next) {
 }
 
 module.exports.validateUser = function (req, res, next) {
-    const { username, email, mobile, password, confPassword } = req.body;
+    const { username, email, password, confPassword } = req.body;
     if (!passwordSchema.validate(password)) {
         req.flash('error', 'Invalid Password')
         return res.redirect('/register')
@@ -42,8 +42,17 @@ module.exports.validateUser = function (req, res, next) {
         req.flash('error', 'Passwords Dont Match!')
         return res.redirect('/register')
     }
-    const validUser = { username, email, mobile }
+    const validUser = { username, email }
     const { error } = userSchema.validate(validUser)
+    if (error) {
+        throw new ExpressError(error.details[0].message, 400)
+    } else {
+        next()
+    }
+}
+
+module.exports.validateUpdate = function (req, res, next) {
+    const { error } = userSchema.validate(req.body)
     if (error) {
         throw new ExpressError(error.details[0].message, 400)
     } else {

@@ -20,7 +20,9 @@ router.route('/login')
         catchAsync(users.login)
     )
 
-router.get('/users/:username', users.showUser)
+router.route('/users/:username')
+    .get(users.showUser)
+    .post(users.edit)
 
 router.get('/users/:username/edit', users.renderEdit)
 
