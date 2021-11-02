@@ -1,4 +1,4 @@
-const save = document.querySelector('.btn-info')
+const save = document.querySelector('.btn-primary')
 const back = document.querySelector('.btn-dark')
 
 save.addEventListener('click', function (e) {

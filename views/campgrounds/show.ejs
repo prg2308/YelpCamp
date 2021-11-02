@@ -49,7 +49,7 @@
                 <% if(campground.author){ %>
                     <% if(currentUser && campground.author._id.equals(currentUser._id)){ %>
                         <div class="card-body">
-                            <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-info my-1 ms-1">Edit</a>
+                            <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-primary my-1 ms-1">Edit</a>
                             <form class="d-inline" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
                                 <button class="btn btn-danger my-1 ms-1">Delete</button>
                             </form>

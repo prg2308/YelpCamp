@@ -18,7 +18,7 @@
                         </span>
                         <% if(currentUser && currentUser.username === user.username){ %>
                             <div class="user-configure">
-                                <a href="/users/<%= user.username %>/edit" class="btn btn-info mt-2 ms-2">Edit</a>
+                                <a href="/users/<%= user.username %>/edit" class="btn btn-primary mt-2 ms-2">Edit</a>
                                 <form class="d-inline" action="/users/<%= user.username %>?_method=DELETE" method="POST">
                                     <button class="btn btn-danger mt-2 ms-2">Delete</button>
                                 </form>
