@@ -1,4 +1,3 @@
-Add tooltip to register to deny password reset
 cross site scripting 
 final check
 re-seed database
