@@ -32,12 +32,11 @@ mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
         console.log('Connection Error', err);
     })
 
-const secret = process.env.SECRET
 const store = MongoStore.create({
     dbUrl,
     touchAfter: 24 * 60 * 60,
     crypto: {
-        secret
+        secret: process.env.SECRET
     }
 });
 
@@ -48,7 +47,7 @@ store.on('error', function (e) {
 const sessionConfig = {
     store,
     name: 'session',
-    secret,
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
