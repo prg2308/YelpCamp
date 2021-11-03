@@ -11,6 +11,7 @@ const ejsMate = require('ejs-mate')
 const mongoSanitize = require('express-mongo-sanitize')
 const helmet = require("helmet");
 
+const { dbUrl } = require('./config/env')
 const campgroundRoutes = require('./router/campground')
 const reviewRoutes = require('./router/review')
 const userRoutes = require('./router/user')
@@ -34,9 +35,12 @@ const sessionConfig = {
     }
 }
 
+//dbUrl -> atlas db
+//'mongodb://localhost:27017/yelpcamp' -> local db
+
 mongoose.connect('mongodb://localhost:27017/yelpcamp', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
-        console.log('Connected to mongod')
+        console.log('Database Connected')
     })
     .catch((err) => {
         console.log('Connection Error', err);
@@ -52,7 +56,7 @@ app.use(session(sessionConfig))
 app.use(flash())
 app.use(helmet());
 
-//Update scrpts and styles urls with bootstrap updates
+//Update scripts and styles urls with bootstrap updates
 
 const scriptSrcUrls = [
     "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js",
