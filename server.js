@@ -11,7 +11,7 @@ const ejsMate = require('ejs-mate')
 const mongoSanitize = require('express-mongo-sanitize')
 const helmet = require("helmet");
 
-const { dbUrl, secret } = require('./config/env')
+const { dbUrl, secret } = require('./config/envm')
 const campgroundRoutes = require('./router/campground')
 const reviewRoutes = require('./router/review')
 const userRoutes = require('./router/user')
