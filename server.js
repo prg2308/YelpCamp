@@ -17,22 +17,10 @@ const reviewRoutes = require('./router/review')
 const userRoutes = require('./router/user')
 const ExpressError = require('./utilities/ExpressError.js')
 const User = require('./models/user.js')
+const MongoStore = require('connect-mongo')
 
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
-}
-
-const sessionConfig = {
-    name: 'session',
-    secret: 'key',
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        httpOnly: true,
-        //secure: true,
-        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-        maxAge: 1000 * 60 * 60 * 24 * 7
-    }
 }
 
 //dbUrl -> atlas db
@@ -45,6 +33,32 @@ mongoose.connect('mongodb://localhost:27017/yelpcamp', { useNewUrlParser: true, 
     .catch((err) => {
         console.log('Connection Error', err);
     })
+
+const store = MongoStore.create({
+    mongoUrl: 'mongodb://localhost:27017/yelpcamp',
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: 'key'
+    }
+});
+
+store.on('error', function (e) {
+    console.log('Session Store Error: ', e)
+})
+
+const sessionConfig = {
+    store,
+    name: 'session',
+    secret: 'key',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        //secure: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+}
 
 
 app.set('view engine', 'ejs')
