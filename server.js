@@ -11,7 +11,7 @@ const ejsMate = require('ejs-mate')
 const mongoSanitize = require('express-mongo-sanitize')
 const helmet = require("helmet");
 
-const { dbUrl } = require('./config/env')
+const { dbUrl, secret } = require('./config/env')
 const campgroundRoutes = require('./router/campground')
 const reviewRoutes = require('./router/review')
 const userRoutes = require('./router/user')
@@ -37,7 +37,7 @@ const store = MongoStore.create({
     mongoUrl: mongoUrl,
     touchAfter: 24 * 60 * 60,
     crypto: {
-        secret: 'key'
+        secret
     }
 });
 
@@ -48,7 +48,7 @@ store.on('error', function (e) {
 const sessionConfig = {
     store,
     name: 'session',
-    secret: 'key',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {

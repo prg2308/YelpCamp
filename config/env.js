@@ -7,3 +7,5 @@ module.exports.cloud = {
 module.exports.mapboxToken = 'pk.eyJ1IjoicHJnMjMwOCIsImEiOiJja3U2dHh5NGwzMWdqMnZxaGs3eGU2MWplIn0.ZNrycoStLr6VIiACqNV0gw'
 
 module.exports.dbUrl = 'mongodb+srv://seeder:8600G8fep2308@prg-cluster.3zoss.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+
+module.exports.secret = '429D85B948B9B1D945A4DF36A2282'
