@@ -11,7 +11,6 @@ const ejsMate = require('ejs-mate')
 const mongoSanitize = require('express-mongo-sanitize')
 const helmet = require("helmet");
 
-const { dbUrl, secret } = require('./config/envm')
 const campgroundRoutes = require('./router/campground')
 const reviewRoutes = require('./router/review')
 const userRoutes = require('./router/user')
@@ -23,9 +22,9 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
 }
 
-const mongoUrl = dbUrl || 'mongodb://localhost:27017/yelpcamp';
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelpcamp';
 
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log('Database Connected')
     })
@@ -33,8 +32,9 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
         console.log('Connection Error', err);
     })
 
+const secret = process.env.SECRET
 const store = MongoStore.create({
-    mongoUrl: mongoUrl,
+    dbUrl,
     touchAfter: 24 * 60 * 60,
     crypto: {
         secret
