@@ -23,10 +23,9 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
 }
 
-//dbUrl -> atlas db
-//'mongodb://localhost:27017/yelpcamp' -> local db
+const mongoUrl = dbUrl || 'mongodb://localhost:27017/yelpcamp';
 
-mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log('Database Connected')
     })
@@ -35,7 +34,7 @@ mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
     })
 
 const store = MongoStore.create({
-    mongoUrl: dbUrl,
+    mongoUrl: mongoUrl,
     touchAfter: 24 * 60 * 60,
     crypto: {
         secret: 'key'
