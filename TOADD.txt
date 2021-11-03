@@ -1,4 +1,3 @@
-set up to deploy
 final check
 re-seed database
 remove seeds folder
