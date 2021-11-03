@@ -4,7 +4,7 @@ const { cloudinary } = require('../config/cloudinary')
 const ExpressError = require('../utilities/ExpressError')
 const Campground = require('../models/campground')
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding')
-const { mapboxToken } = require('../config/envm')
+const { mapboxToken } = require('../config/env')
 const campground = require('../models/campground')
 const geoCoder = mbxGeocoding({ accessToken: mapboxToken })
 
