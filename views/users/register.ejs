@@ -22,8 +22,9 @@
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" name="password" id="password" class="form-control"
-                        pattern="^(?=.*[0-9])(?=.*[a-zA-Z])(?=\S+$).{8,}$"
-                        placeholder="Minimum 8 characters with atleast One Digit and One Character" required>
+                        pattern="^(?=.*[0-9])(?=.*[a-zA-Z])(?=\S+$).{8,}$" required>
+                    <div id="passwordHelp" class="form-text pb-2">Minimum 8 characters with atleast One Digit and One
+                        Character</div>
                     <div class="invalid-feedback password-feedback">
                         Required
                     </div>
@@ -48,6 +49,10 @@
         .bg-trans {
             --bs-bg-opacity: 1;
             background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+        }
+
+        .invisible {
+            display: none;
         }
     </style>
     <script src="/js/register-script.js"></script>

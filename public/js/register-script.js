@@ -10,6 +10,7 @@ const username = document.querySelector('#username')
 const usernameFeedback = document.querySelector('.username-feedback')
 const mobile = document.querySelector('#mobile')
 const mobileFeedback = document.querySelector('.mobile-feedback')
+const passwordHelp = document.querySelector('#passwordHelp')
 
 button.addEventListener('click', function () {
 
@@ -18,6 +19,9 @@ button.addEventListener('click', function () {
     }
 
     if (!password.checkValidity() && password.value) {
+
+        passwordHelp.classList.add('invisible')
+
         if (password.value.length < 8) {
             passwordFeedback.innerText = 'Must be atleast 8 charcters'
         } else {

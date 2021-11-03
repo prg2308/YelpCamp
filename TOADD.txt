@@ -1,4 +1,2 @@
-final check
-re-seed database
 remove seeds folder
-deploy
+final check

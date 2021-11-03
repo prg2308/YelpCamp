@@ -3,8 +3,9 @@ const cities = require('./cities.js')
 const { descriptors, places } = require('./seedHelpers')
 const Campground = require('../models/campground')
 const getDate = require('../utilities/date')
+const { dbUrl } = require('../config/env')
 
-mongoose.connect('mongodb://localhost:27017/yelpcamp', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log('Connected to mongod')
     })
@@ -48,14 +49,13 @@ async function seedDB() {
     for (let i = 0; i < 200; i++) {
         const randomNo = Math.floor(Math.random() * 769)
         const price = Math.floor(Math.random() * 2000) + 500
-        const avgRating = Math.floor(Math.random() * 5) + 1
         const date = getDate()
         const randImg = []
         for (let i = 0; i < 3; i++) {
             randImg[i] = Math.floor(Math.random() * 6)
         }
         const camp = new Campground({
-            author: '618112afad9df7fd31f65685',
+            author: '618235036ecd5f711725ca9f',
             title: `${randArray(descriptors)} ${randArray(places)}`,
             geometry: {
                 type: 'Point',
@@ -74,7 +74,6 @@ async function seedDB() {
             location: `${cities[randomNo].city}, ${cities[randomNo].country}`,
             timestamp: Date.now(),
             createDate: date,
-            avgRating
         })
         await camp.save()
     }

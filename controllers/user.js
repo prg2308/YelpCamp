@@ -7,6 +7,9 @@ module.exports.renderRegister = (req, res) => {
 }
 
 module.exports.renderLogin = (req, res) => {
+    if (req.session.passport.user) {
+        return res.redirect('/campgrounds')
+    }
     res.render('users/login.ejs')
 }
 
