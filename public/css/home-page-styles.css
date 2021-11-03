@@ -67,13 +67,18 @@ body{
     background-color: rgba(251,238,193,0.8);
 }
 
-/* #home-logo{
-    height: 3rem; 
-    width: 3rem; 
-    margin-bottom: 1rem;
-} */
 
-  
+.home-github{
+    height: 2rem !important; 
+    width: 2rem !important; 
+    color: rgba(255,255,255,.55);
+    transition: color .15s ease-in-out;
+}
+
+.home-github:hover{
+    color: rgba(255,255,255,.75);
+}
+
 @media (min-width:992px){
     .navbar-home{
         padding-left: 10rem;
