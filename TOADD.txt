@@ -1,2 +1,0 @@
-remove seeds folder
-final check
