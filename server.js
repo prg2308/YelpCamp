@@ -26,7 +26,7 @@ if (process.env.NODE_ENV !== 'production') {
 //dbUrl -> atlas db
 //'mongodb://localhost:27017/yelpcamp' -> local db
 
-mongoose.connect('mongodb://localhost:27017/yelpcamp', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log('Database Connected')
     })
@@ -35,7 +35,7 @@ mongoose.connect('mongodb://localhost:27017/yelpcamp', { useNewUrlParser: true, 
     })
 
 const store = MongoStore.create({
-    mongoUrl: 'mongodb://localhost:27017/yelpcamp',
+    mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60,
     crypto: {
         secret: 'key'
@@ -163,8 +163,10 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('error.ejs', { err })
 })
 
+const port = process.env.PORT || 3000
+
 app.listen(3000, () => {
-    console.log('Hosted on port 3000')
+    console.log(`Hosted on port ${port}`)
 })
 
 
