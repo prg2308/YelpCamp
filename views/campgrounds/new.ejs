@@ -40,12 +40,12 @@
                 <div class="mb-3">
                     <label for="image" class="form-label">Upload Images</label>
                     <input class="form-control" type="file" id="image" name="image" multiple required>
-                    <div id="imageHelp" class="form-text pb-2">Images with a 4:3 ratio produce the best results!</div>
-                    <div class="invalid-feedback">
+                    <div id="imageHelp" class="form-text pb-2">Maximum Size : 10 MB</div>
+                    <div class="invalid-feedback image-feedback">
                         Required
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success mb-3">Add Campground</button>
+                <button type="submit" class="btn btn-success mb-3 submit-new">Add Campground</button>
                 <a class="btn btn-dark mb-3" href="/campgrounds">Back</a>
             </form>
         </div>
@@ -56,3 +56,44 @@
             background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
         }
     </style>
+
+    <script>
+        const imgFiles = document.querySelector('#image');
+        const imageHelp = document.querySelector('#imageHelp');
+        const imageFeedback = document.querySelector('.image-feedback')
+        imgFiles.addEventListener('change', function () {
+            let flag = 0
+            for (image of imgFiles.files) {
+                if (image.size > 10485760) {
+                    imgFiles.setCustomValidity('File Limit Exeeded')
+                    imageHelp.classList.add('text-danger')
+                    imageHelp.innerText = `"${image.name}" Exceeds 10 MB`
+                    flag = 1
+                    break;
+                }
+
+                if (image.type.slice(0, 5) !== 'image') {
+                    imgFiles.setCustomValidity('Invalid File')
+                    imageHelp.classList.add('text-danger')
+                    imageHelp.innerText = `"${image.name}"  is not an image!`
+                    flag = 1
+                    break;
+                }
+
+            }
+
+            if (flag === 0) {
+                imgFiles.setCustomValidity('')
+                imageHelp.classList.remove('text-danger')
+                imageHelp.innerText = `Maximum Size : 10 MB`
+            }
+        })
+
+        // const button = document.querySelector('.submit-new')
+        // button.addEventListener('click', function (e) {
+        //     if (!imgFiles.checkValidity() && imgFiles.value) {
+        //         imageHelp.innerText = ''
+        //         imageFeedback.innerText = `'${invalidFileName}' Exceeds 10 MB`
+        //     }
+        // })
+    </script>
