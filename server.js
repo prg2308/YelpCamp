@@ -23,6 +23,15 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
 }
 
+if (process.env.NODE_ENV === 'production') {
+    app.use((req, res, next) => {
+        if (req.header('x-forwarded-proto') !== 'https')
+            res.redirect(`https://${req.header('host')}${req.url}`)
+        else
+            next()
+    })
+}
+
 const mongoUrl = dbUrl || 'mongodb://localhost:27017/yelpcamp';
 
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
