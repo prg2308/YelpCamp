@@ -1,0 +1,39 @@
+<% layout('/layouts/boilerplate') %>
+
+    <div class="row">
+        <div class="col-6 offset-3">
+            <h1>Password Reset</h1>
+            <form action="/reset" method="POST" novalidate class="validated-form">
+                <div class="mb-4">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" id="email" class="form-control"
+                        pattern="^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$" required>
+                    <div class="invalid-feedback email-feedback">
+                        Required
+                    </div>
+                </div>
+                <button class="btn btn-primary mb-2">Send Email</button>
+            </form>
+        </div>
+    </div>
+    <style>
+        .bg-trans {
+            --bs-bg-opacity: 1;
+            background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+        }
+    </style>
+
+    <script>
+        const button = document.querySelector('.btn')
+        const email = document.querySelector('#email')
+        const emailFeedback = document.querySelector('.email-feedback')
+
+        button.addEventListener('click', function () {
+
+            if (!email.checkValidity() && email.value) {
+                emailFeedback.innerText = 'Invalid Email'
+            }
+
+        })
+
+    </script>
