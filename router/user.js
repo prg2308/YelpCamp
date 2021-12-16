@@ -44,15 +44,35 @@ router.get('/reset/:token', catchAsync(async (req, res) => {
     const { token } = req.params;
     const user = await User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } })
     if (!user) {
-        req.flash('error', 'Password Reset Token has expired! Please try again')
+        req.flash('error', 'Password Reset Token is invalid or has expired! Please try again')
         return res.redirect('/reset')
     }
     res.render('users/setNew', { token, user })
 }))
 
 router.post('/reset/:token', validatePassword, catchAsync(async (req, res) => {
-    const { token } = req.params
+    const { token } = req.params;
     const { password } = req.body;
+    const user = await User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } })
+    if (!user) {
+        req.flash('error', 'Password Reset Token is invalid or has expired! Please try again')
+        return res.redirect('/reset')
+    }
+
+    await user.setPassword(password)
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save();
+    req.login(user, function (err) {
+        if (err) {
+            next(err);
+        }
+    })
+
+    req.flash('success', 'Password Updated Successfully')
+    res.redirect(`/users/${user.username}`)
+
+
 }))
 
 module.exports = router

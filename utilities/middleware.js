@@ -44,6 +44,8 @@ module.exports.validatePassword = function (req, res, next) {
         req.flash('error', 'Passwords Dont Match!')
         return res.redirect(`/reset/${token}`)
     }
+
+    next()
 }
 
 module.exports.validateUser = function (req, res, next) {

@@ -23,17 +23,16 @@
                     <label for="showPassword">Show Password</label>
                 </div>
                 <button class="btn btn-success mb-2">Login</button>
-                <div class="form-text"><a href="/register" style="text-decoration: none;">Create an account</a>
+                <div class="mb-3">
+                    <span class="form-text register-link"><a href="/register" style="text-decoration: none;">Create an
+                            account</a></span>
+                    <span class="form-text forgot-link"><a href="/reset" style="text-decoration: none;">Forgot
+                            Password?</a></span>
                 </div>
             </form>
         </div>
     </div>
-    <style>
-        .bg-trans {
-            --bs-bg-opacity: 1;
-            background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/login-styles.css">
     <script>
         const password = document.querySelector('#password')
         showPassword.addEventListener('change', function () {
