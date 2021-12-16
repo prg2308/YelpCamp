@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport')
+const User = require('../models/user')
 
 const catchAsync = require('../utilities/catchAsync')
 const users = require('../controllers/user');
@@ -36,5 +37,15 @@ router.get('/logout', users.logout)
 router.route('/reset')
     .get(users.renderReset)
     .post(catchAsync(users.reset))
+
+router.get('/reset/:token', catchAsync(async (req, res) => {
+    const { token } = req.params;
+    const user = await User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } })
+    if (!user) {
+        req.flash('error', 'Password Reset Token has expired! Please try again')
+        return res.redirect('/reset')
+    }
+    res.render('users/setNew', { token, user })
+}))
 
 module.exports = router
