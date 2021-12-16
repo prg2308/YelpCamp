@@ -1,6 +1,9 @@
 const User = require('../models/user');
 const Campground = require('../models/campground')
 const getDate = require('../utilities/date');
+const crypto = require('crypto')
+const sgMail = require('@sendgrid/mail')
+const { sendgridKey } = require('../config/env')
 
 module.exports.renderRegister = (req, res) => {
     res.render('users/register.ejs')
@@ -108,6 +111,45 @@ module.exports.edit = async (req, res) => {
         res.redirect(`/users/${updated.username}`)
     })
 
+}
+
+module.exports.renderReset = (req, res) => {
+    res.render('users/reset')
+}
+
+module.exports.reset = async (req, res) => {
+
+    const buf = await crypto.randomBytes(20);
+    const token = buf.toString('hex')
+
+    const user = await User.findOne({ email: req.body.email })
+    if (!user) {
+        req.flash('error', 'No account with that email exists')
+        return res.redirect('/reset')
+    }
+
+    user.resetPasswordToken = token;
+    user.resetPasswordExpires = Date.now() + 3600000
+    await user.save()
+
+    sgMail.setApiKey(sendgridKey)
+    const msg = {
+        to: user.email,
+        from: 'yelpcamp@hotmail.com',
+        subject: 'YelpCamp Password Reset',
+        text: 'Click the link to change your password. If this was not you, ignore this email',
+        html: ` <strong>${user.username},</strong>
+                <p>Someone (Hopefully you) has requested a password reset</p>
+                <p><a href="http://localhost:3000/reset/${token}">Click Here</a> to reset your YelpCamp password</p>
+                <br>
+                <p>If this was not you, please ignore this email</p>
+                <hr>
+                <i>This link will expire in one hour</i> `
+    }
+
+    await sgMail.send(msg);
+    req.flash('success', 'Email sent. Check your inbox for further instructions.');
+    res.redirect('/reset')
 }
 
 module.exports.delete = async (req, res) => {
