@@ -5,6 +5,7 @@ const crypto = require('crypto')
 const sgMail = require('@sendgrid/mail')
 const { sendgridKey } = require('../config/env')
 
+
 module.exports.renderRegister = (req, res) => {
     res.render('users/register.ejs')
 }
@@ -150,6 +151,41 @@ module.exports.reset = async (req, res) => {
     await sgMail.send(msg);
     req.flash('success', 'Email sent. Check your inbox for further instructions.');
     res.redirect('/reset')
+}
+
+module.exports.renderSetNew = async (req, res) => {
+    const { token } = req.params;
+    const user = await User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } })
+    if (!user) {
+        req.flash('error', 'Password Reset Token is invalid or has expired! Please try again')
+        return res.redirect('/reset')
+    }
+    res.render('users/setNew', { token, user })
+}
+
+module.exports.setNew = async (req, res) => {
+    const { token } = req.params;
+    const { password } = req.body;
+    const user = await User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } })
+    if (!user) {
+        req.flash('error', 'Password Reset Token is invalid or has expired! Please try again')
+        return res.redirect('/reset')
+    }
+
+    await user.setPassword(password)
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save();
+    req.login(user, function (err) {
+        if (err) {
+            next(err);
+        }
+    })
+
+    req.flash('success', 'Password Updated Successfully')
+    res.redirect(`/users/${user.username}`)
+
+
 }
 
 module.exports.delete = async (req, res) => {
