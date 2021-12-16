@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport')
+
 const User = require('../models/user')
+const { passwordSchema } = require('../utilities/schemas')
 
 const catchAsync = require('../utilities/catchAsync')
 const users = require('../controllers/user');
-const { validateUser, validateUpdate } = require('../utilities/middleware')
+const { validateUser, validateUpdate, validatePassword } = require('../utilities/middleware')
 
 
 router.route('/register')
@@ -46,6 +48,11 @@ router.get('/reset/:token', catchAsync(async (req, res) => {
         return res.redirect('/reset')
     }
     res.render('users/setNew', { token, user })
+}))
+
+router.post('/reset/:token', validatePassword, catchAsync(async (req, res) => {
+    const { token } = req.params
+    const { password } = req.body;
 }))
 
 module.exports = router

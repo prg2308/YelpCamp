@@ -140,7 +140,7 @@ module.exports.reset = async (req, res) => {
         text: 'Click the link to change your password. If this was not you, ignore this email',
         html: ` <strong>${user.username},</strong>
                 <p>Someone (Hopefully you) has requested a password reset</p>
-                <p><a href="http://localhost:3000/reset/${token}">Click Here</a> to reset your YelpCamp password</p>
+                <p><a href="http://${req.headers.host}/reset/${token}">Click Here</a> to reset your YelpCamp password</p>
                 <br>
                 <p>If this was not you, please ignore this email</p>
                 <hr>

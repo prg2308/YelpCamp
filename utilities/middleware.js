@@ -33,6 +33,19 @@ module.exports.validateReview = function (req, res, next) {
     }
 }
 
+module.exports.validatePassword = function (req, res, next) {
+    const { token } = req.params
+    const { password, confPassword } = req.body;
+    if (!passwordSchema.validate(password)) {
+        req.flash('error', 'Invalid Password')
+        return res.redirect('/register')
+    }
+    if (password !== confPassword) {
+        req.flash('error', 'Passwords Dont Match!')
+        return res.redirect(`/reset/${token}`)
+    }
+}
+
 module.exports.validateUser = function (req, res, next) {
     const { username, email, password, confPassword } = req.body;
     if (!passwordSchema.validate(password)) {
