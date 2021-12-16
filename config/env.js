@@ -9,3 +9,5 @@ module.exports.mapboxToken = 'pk.eyJ1IjoicHJnMjMwOCIsImEiOiJja3U2dHh5NGwzMWdqMnZ
 module.exports.dbUrl = 'mongodb+srv://seeder:8600G8fep2308@prg-cluster.3zoss.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
 module.exports.secret = '429D85B948B9B1D945A4DF36A2282'
+
+module.exports.sendgridKey = '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'
