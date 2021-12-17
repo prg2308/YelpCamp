@@ -1,5 +1,5 @@
 # YelpCamp
-A Full CRUD Web Application based on Colt Steele's famous project 
+A Full CRUD Web Application to create and manage Campgrounds from all over the world
 
 ## Basic Features
 - Search for and View Campgrounds from all over the world
