@@ -32,8 +32,7 @@ if (process.env.NODE_ENV === 'production') {
     })
 }
 
-//const mongoUrl = dbUrl || 'mongodb://localhost:27017/yelpcamp';
-const mongoUrl = 'mongodb://localhost:27017/yelpcamp'
+const mongoUrl = dbUrl || 'mongodb://localhost:27017/yelpcamp';
 
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
