@@ -1,5 +1,5 @@
 # <img src="/public/img/logo.png" alt="logo" width="35" height="35"/> YelpCamp
-A Full CRUD Web Application to create and manage Campgrounds from all over the world
+A Full CRUD Web Application to create and manage Campgrounds from all over the world.
 
 ## Basic Features
 - Search for and View Campgrounds from all over the world
