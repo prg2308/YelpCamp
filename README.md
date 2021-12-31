@@ -1,5 +1,5 @@
-# YelpCamp
-A Full CRUD Web Application to create and manage Campgrounds from all over the world
+# <img src="/public/img/logo.png" alt="logo" width="35" height="35"/> YelpCamp
+A Full CRUD Web Application to create and manage Campgrounds from all over the world.
 
 ## Basic Features
 - Search for and View Campgrounds from all over the world
@@ -7,6 +7,6 @@ A Full CRUD Web Application to create and manage Campgrounds from all over the w
 - Create and Edit your own Campgrounds
 - Use an interacive cluster map to locate Campgrounds
 
-###### Created using Node/Express MongoDB and EJS
+###### Created using Node/Express, MongoDB and EJS
 ###### Deployed via Heroku
 
