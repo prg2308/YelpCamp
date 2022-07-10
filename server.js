@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config()
+}
+
 const express = require('express')
 const app = express()
 const path = require('path')
@@ -11,17 +15,12 @@ const ejsMate = require('ejs-mate')
 const mongoSanitize = require('express-mongo-sanitize')
 const helmet = require("helmet");
 
-const { dbUrl, secret } = require('./config/env')
 const campgroundRoutes = require('./router/campground')
 const reviewRoutes = require('./router/review')
 const userRoutes = require('./router/user')
 const ExpressError = require('./utilities/ExpressError.js')
 const User = require('./models/user.js')
 const MongoStore = require('connect-mongo')
-
-if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config()
-}
 
 if (process.env.NODE_ENV === 'production') {
     app.use((req, res, next) => {
@@ -32,7 +31,8 @@ if (process.env.NODE_ENV === 'production') {
     })
 }
 
-const mongoUrl = dbUrl || 'mongodb://localhost:27017/yelpcamp';
+const mongoUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelpcamp';
+const secret = process.env.SESSION_SECRET
 
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {

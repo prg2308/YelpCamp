@@ -1,12 +1,15 @@
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config()
+}
+
 const mongoose = require('mongoose')
 const getDate = require('../utilities/date')
 const { cloudinary } = require('../config/cloudinary')
 const ExpressError = require('../utilities/ExpressError')
 const Campground = require('../models/campground')
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding')
-const { mapboxToken } = require('../config/env')
 const campground = require('../models/campground')
-const geoCoder = mbxGeocoding({ accessToken: mapboxToken })
+const geoCoder = mbxGeocoding({ accessToken: process.env.MAPBOX_TOKEN })
 
 module.exports.index = async (req, res, next) => {
     let campgrounds, allCamps, text, index
