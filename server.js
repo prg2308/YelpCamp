@@ -172,9 +172,15 @@ app.use((err, req, res, next) => {
 
 const port = process.env.PORT || 3000
 
-app.listen(port, () => {
-    console.log(`Hosted on port ${port}`)
-})
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        app.listen(port, () => {
+            console.log(`Hosted on port ${port}`)
+        })
+    })
+    .catch((err) => {
+        console.log('Connection Error', err);
+    })
 
 
 
