@@ -3,5 +3,5 @@ A Full CRUD Web Application to create and manage Campgrounds from all over the w
 
 
 ###### Created using Node/Express, MongoDB and EJS
-###### Deployed via Heroku
+###### Deployed via Cyclic
 
